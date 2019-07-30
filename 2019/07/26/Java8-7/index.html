@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,读书笔记,Java8,《Java8实战》,Java8 stream,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 筛选和切片如何选择流中的元素：用谓词筛选，筛选出各不相同的元素，忽略流中的头几个元素，或将流截短至指定长度 1.1 filter: 用谓词筛选filter接受一个谓词Predicate&amp;lt;T&amp;gt;，返回一个包括所有符合谓词元素的流。 1234//筛选出所有素材，创建一张素食菜单List&amp;lt;Dish&amp;gt; vegetarianMenu = menu.stream()">
+<meta name="keywords" content="Java,读书笔记,Java8,《Java8实战》,Java8 stream">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java8：流的复杂操作">
+<meta property="og:url" content="http://wangminrui.github.io/2019/07/26/Java8-7/index.html">
+<meta property="og:site_name" content="王敏蕊个人饲养间">
+<meta property="og:description" content="1. 筛选和切片如何选择流中的元素：用谓词筛选，筛选出各不相同的元素，忽略流中的头几个元素，或将流截短至指定长度 1.1 filter: 用谓词筛选filter接受一个谓词Predicate&amp;lt;T&amp;gt;，返回一个包括所有符合谓词元素的流。 1234//筛选出所有素材，创建一张素食菜单List&amp;lt;Dish&amp;gt; vegetarianMenu = menu.stream()">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-30T08:14:32.291Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java8：流的复杂操作">
+<meta name="twitter:description" content="1. 筛选和切片如何选择流中的元素：用谓词筛选，筛选出各不相同的元素，忽略流中的头几个元素，或将流截短至指定长度 1.1 filter: 用谓词筛选filter接受一个谓词Predicate&amp;lt;T&amp;gt;，返回一个包括所有符合谓词元素的流。 1234//筛选出所有素材，创建一张素食菜单List&amp;lt;Dish&amp;gt; vegetarianMenu = menu.stream()">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wangminrui.github.io/2019/07/26/Java8-7/">
+
+
+
+
+
+  <title>Java8：流的复杂操作 | 王敏蕊个人饲养间</title>
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.10'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王敏蕊个人饲养间</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">三思而后言</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wangminrui.github.io/2019/07/26/Java8-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王敏蕊">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王敏蕊个人饲养间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java8：流的复杂操作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-26T15:15:19+08:00">
+                2019-07-26
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-30T16:14:32+08:00">
+                2019-07-30
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/Java/Java8/" itemprop="url" rel="index">
+                    <span itemprop="name">Java8</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/26/Java8-7/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/07/26/Java8-7/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-筛选和切片"><a href="#1-筛选和切片" class="headerlink" title="1. 筛选和切片"></a>1. 筛选和切片</h1><p>如何选择流中的元素：用谓词筛选，筛选出各不相同的元素，忽略流中的头几个元素，或将流截短至指定长度</p>
+<h2 id="1-1-filter-用谓词筛选"><a href="#1-1-filter-用谓词筛选" class="headerlink" title="1.1 filter: 用谓词筛选"></a>1.1 filter: 用谓词筛选</h2><p><code>filter</code>接受一个谓词<code>Predicate&lt;T&gt;</code>，返回一个包括所有符合谓词元素的流。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//筛选出所有素材，创建一张素食菜单</span></span><br><span class="line">List&lt;Dish&gt; vegetarianMenu = menu.stream()</span><br><span class="line">    				.filter(Dish::isVegetarian)</span><br><span class="line">    				.collect(toList());</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="1-2-distinct-筛选各异元素"><a href="#1-2-distinct-筛选各异元素" class="headerlink" title="1.2 distinct: 筛选各异元素"></a>1.2 distinct: 筛选各异元素</h2><p><code>distinct</code>返回一个元素各异（根据流所生成元素的hasCode和equals方法实现）的流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 筛选出列表中所有的偶数</span></span><br><span class="line">List&lt;Integer&gt; numbers = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">3</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">4</span>);</span><br><span class="line">numbers.stream()</span><br><span class="line">    	.filter(i -&gt; i % <span class="number">2</span> == <span class="number">0</span>)</span><br><span class="line">    	.distinct()</span><br><span class="line">    	.forEach(System.out::println)</span><br></pre></td></tr></table></figure>
+<h2 id="1-3-limit-截短流"><a href="#1-3-limit-截短流" class="headerlink" title="1.3 limit: 截短流"></a>1.3 limit: 截短流</h2><p><code>limit(n)</code>会返回一个不超过给定长度的流。所需长度作为参数传递给limit。如果流是有序的，则最多会返回前n个元素。如果流是无序的，比如是一个Set，limit的结果不会以任何顺序排列。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//选出热量超过300卡路里的头三道菜</span></span><br><span class="line">List&lt;Dish&gt; dishes = menu.stream()</span><br><span class="line">    			.filter(d -&gt; d.getCalories() &gt; <span class="number">300</span>)</span><br><span class="line">    			.limit(<span class="number">3</span>)</span><br><span class="line">    			.collect(toList());</span><br></pre></td></tr></table></figure>
+<h2 id="1-4-skip-跳过元素"><a href="#1-4-skip-跳过元素" class="headerlink" title="1.4 skip: 跳过元素"></a>1.4 skip: 跳过元素</h2><p><code>skip(n)</code>返回一个扔掉了前n个元素的流。如果流中元素不足n个，则返回一个空流。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//跳过超过300卡路里的头两道菜</span></span><br><span class="line">List&lt;Dish&gt; dishes = menu.stream()</span><br><span class="line">    			.filter(d -&gt; d.getCalories() &gt; <span class="number">300</span>)</span><br><span class="line">    			.skip(<span class="number">2</span>)</span><br><span class="line">    			.collect(toList());</span><br></pre></td></tr></table></figure>
+<h1 id="2-映射"><a href="#2-映射" class="headerlink" title="2. 映射"></a>2. 映射</h1><p>从流对象中提取某些信息出来</p>
+<h2 id="2-1-map-对流中的每一个元素应用函数"><a href="#2-1-map-对流中的每一个元素应用函数" class="headerlink" title="2.1 map: 对流中的每一个元素应用函数"></a>2.1 map: 对流中的每一个元素应用函数</h2><p><code>map</code>接受一个函数作为参数，这个函数被应用到每个元素上，并将其映射成一个新的元素。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//提取菜肴名称</span></span><br><span class="line">List&lt;String&gt; dishNames = menu.stream()</span><br><span class="line">    				.map(Dish::getName)</span><br><span class="line">    				.collect(toList());</span><br><span class="line"></span><br><span class="line"><span class="comment">//给定单词列表，想要返回另一个列表，显示每个单词中有几个字母</span></span><br><span class="line">List&lt;String&gt; words = Arrays.asList(<span class="string">"Java 8"</span>, <span class="string">"Lambdas"</span>, <span class="string">"In"</span>, <span class="string">"Action"</span>);</span><br><span class="line">List&lt;Integer&gt; wordLengths = words.stream()</span><br><span class="line">    				.map(String::length)</span><br><span class="line">    				.collect(toList());</span><br><span class="line"></span><br><span class="line"><span class="comment">//返回每道菜的名称有多长</span></span><br><span class="line">List&lt;String&gt; dishNameLengths = menu.stream()</span><br><span class="line">    				.map(Dish::getName)</span><br><span class="line">    				.map(String::length)</span><br><span class="line">    				.collect(toList());</span><br></pre></td></tr></table></figure>
+<h2 id="2-2-flatMap-流的扁平化"><a href="#2-2-flatMap-流的扁平化" class="headerlink" title="2.2 flatMap: 流的扁平化"></a>2.2 flatMap: 流的扁平化</h2><p>扩展上一节的问题，给定单词表，如何返回一张列表，列出里面各不相同的字符。例如给出[“Hello”, “World”]，返回[“H”, “e”, “l”, “o”, “W”, “r”, “d”]</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这样是不行的</span></span><br><span class="line">words.stream()</span><br><span class="line">    .map(word -&gt; word.split(<span class="string">""</span>))	<span class="comment">//为每个单词返回了一个String[]，因此返回的流是Stream&lt;String[]&gt;类型的</span></span><br><span class="line">    .distinct()	<span class="comment">//而这一步需要的是Stream&lt;String&gt;类型的输入</span></span><br><span class="line">    .collect(toList());</span><br></pre></td></tr></table></figure>
+<p><code>flatMap</code>将上一步产生的单个流都合并起来，即扁平化为一个流</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; uniqueCharacters = </span><br><span class="line">    words.stream()</span><br><span class="line">    	.map(w -&gt; w.split(<span class="string">""</span>))</span><br><span class="line">    	.flatMap(Arrays::stream)	<span class="comment">//Arrays::stream把每个数组变成单个流</span></span><br><span class="line">    	.distinct()</span><br><span class="line">    	.collect(toList());</span><br></pre></td></tr></table></figure>
+<h2 id="2-3-test"><a href="#2-3-test" class="headerlink" title="2.3 test"></a>2.3 test</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 给定数字列表，如何返回一个由每个数的平方构成的列表</span></span><br><span class="line">List&lt;Integer&gt; numbers = Arrays.asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">List&lt;Integer&gt; squares = </span><br><span class="line">    numbers.stream()</span><br><span class="line">    	.map(n -&gt; n*n)</span><br><span class="line">    	.collect(toList());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 给定两个数字列表，如何返回所有数对。例如给定[1,2,3]和[3,4]，应该返回[(1,3),(1,4),(2,3),(2,4),(3,3),(3,4)]</span></span><br><span class="line">List&lt;Integer&gt; numbers1 = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">List&lt;Integer&gt; numbers2 = Arrays.asList(<span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">List&lt;<span class="keyword">int</span>[]&gt; pairs = </span><br><span class="line">    numbers1.stream()</span><br><span class="line">    	.flatMap(i -&gt; numbers2.stream()	<span class="comment">//如果不使用flatMap，将生成&lt;Stream&lt;Integer[]&gt;&gt;，每个数组一个单个流</span></span><br><span class="line">                 .map(j -&gt; <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i, j&#125;)</span><br><span class="line">                 )</span><br><span class="line">    	.collect(toList());</span><br><span class="line"></span><br><span class="line"><span class="comment">// 扩展前面的例子，如何返回总和能被3整除的数对呢？</span></span><br><span class="line">List&lt;Integer&gt; numbers1 = Arrays.asList(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</span><br><span class="line">List&lt;Integer&gt; numbers2 = Arrays.asList(<span class="number">3</span>, <span class="number">4</span>);</span><br><span class="line">List&lt;<span class="keyword">int</span>[]&gt; pairs = </span><br><span class="line">    numbers1.stream()</span><br><span class="line">    	.flatMap(i -&gt; numbers2.stream()</span><br><span class="line">                 .filter(j -&gt; (i+j)%<span class="number">3</span> == <span class="number">0</span>)	<span class="comment">//选出能被3整出的数对</span></span><br><span class="line">                 .map(j -&gt; <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;i, j&#125;)</span><br><span class="line">                 )</span><br><span class="line">    	.collect(toList());</span><br></pre></td></tr></table></figure>
+<h1 id="3-查找和匹配"><a href="#3-查找和匹配" class="headerlink" title="3. 查找和匹配"></a>3. 查找和匹配</h1><p>查找数据集中的某些元素是否匹配一个给定的属性</p>
+<h2 id="3-1-anyMatch-检查谓词是否至少匹配一个元素"><a href="#3-1-anyMatch-检查谓词是否至少匹配一个元素" class="headerlink" title="3.1 anyMatch: 检查谓词是否至少匹配一个元素"></a>3.1 anyMatch: 检查谓词是否至少匹配一个元素</h2><p><code>anyMatch</code>方法接受谓词参数，返回boolean类型，判断流中是否由一个元素能匹配给定谓词</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 看菜单中是否由素食可以选择</span></span><br><span class="line"><span class="keyword">if</span> (menu.stream().anyMatch(Dish::isVegetarian))&#123;</span><br><span class="line">    System.out.println(<span class="string">"The menu is (somewhat) vegetarian friendly!!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-2-allMatch、noneMath-检查谓词是否匹配所有元素"><a href="#3-2-allMatch、noneMath-检查谓词是否匹配所有元素" class="headerlink" title="3.2 allMatch、noneMath: 检查谓词是否匹配所有元素"></a>3.2 allMatch、noneMath: 检查谓词是否匹配所有元素</h2><p><code>allMatch</code>方法接受谓词参数，返回boolean类型，判断流中的元素是否都能匹配给定的谓词</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 所有菜是否都低于1000卡路里</span></span><br><span class="line"><span class="keyword">boolean</span> isHealthy = menu.stream()</span><br><span class="line">    			.allMatch(d -&gt; d.getCalorires() &lt; <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<p><code>noneMath</code>方法与<code>allMatch</code>完全相反，</p>
+<h2 id="3-3-findAny-查找元素"><a href="#3-3-findAny-查找元素" class="headerlink" title="3.3 findAny: 查找元素"></a>3.3 findAny: 查找元素</h2><h2 id="3-4-findFirst-查找第一个元素"><a href="#3-4-findFirst-查找第一个元素" class="headerlink" title="3.4 findFirst: 查找第一个元素"></a>3.4 findFirst: 查找第一个元素</h2><h1 id="4-归约"><a href="#4-归约" class="headerlink" title="4. 归约"></a>4. 归约</h1><h1 id="5-常用操作总结"><a href="#5-常用操作总结" class="headerlink" title="5. 常用操作总结"></a>5. 常用操作总结</h1><h1 id="6-实战"><a href="#6-实战" class="headerlink" title="6. 实战"></a>6. 实战</h1><p>背景：</p>
+<ul>
+<li>交易员类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Traders</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String city;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Traders</span><span class="params">(String n, String c)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = n;</span><br><span class="line">        <span class="keyword">this</span>.city = c;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getCity</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> city;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"name: "</span> + <span class="keyword">this</span>.name + <span class="string">", "</span></span><br><span class="line">                + <span class="string">"city: "</span> + <span class="keyword">this</span>.city;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>执行交易类</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Transaction</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Traders trader;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> year;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">int</span> value;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Transaction</span><span class="params">(Traders trader, <span class="keyword">int</span> year, <span class="keyword">int</span> value)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.trader = trader;</span><br><span class="line">        <span class="keyword">this</span>.year = year;</span><br><span class="line">        <span class="keyword">this</span>.value = value;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Traders <span class="title">getTrader</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> trader;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getYear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> year;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">getValue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> value;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"&#123;"</span> + <span class="keyword">this</span>.trader.getName() + <span class="string">", "</span> +</span><br><span class="line">                <span class="string">"year "</span> + <span class="keyword">this</span>.year + <span class="string">", "</span> + </span><br><span class="line">                <span class="string">"value "</span> + <span class="keyword">this</span>.value + <span class="string">"&#125;"</span>; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>需要执行的操作：</p>
+<ol>
+<li>找出2011年发生的所有交易，并按交易额排序（从低到高）</li>
+<li>交易员都在哪些不同的城市工作过？</li>
+<li>查找所有来自剑桥的交易员，并按姓名排序</li>
+<li>返回所有交易员的姓名字符串，按字母顺序排序</li>
+<li>有没有交易员是在米兰工作的</li>
+<li>打印生活在剑桥的交易员的所有交易额</li>
+<li>所有交易额中，最高的交易额是多少</li>
+<li>找到交易额最小的交易</li>
+</ol>
+<p>解答：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.Arrays;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"><span class="keyword">import</span> java.util.Optional;</span><br><span class="line"><span class="keyword">import</span> java.util.stream.Collectors;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.util.Comparator.comparing;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TraderAndTransaction</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Traders raoul = <span class="keyword">new</span> Traders(<span class="string">"Raoul"</span>, <span class="string">"Cambridge"</span>); </span><br><span class="line">        Traders mario = <span class="keyword">new</span> Traders(<span class="string">"Mario"</span>, <span class="string">"Milan"</span>); </span><br><span class="line">        Traders alan = <span class="keyword">new</span> Traders(<span class="string">"Alan"</span>, <span class="string">"Cambridge"</span>); </span><br><span class="line">        Traders brian = <span class="keyword">new</span> Traders(<span class="string">"Brian"</span>, <span class="string">"Cambridge"</span>); </span><br><span class="line">        </span><br><span class="line">        List&lt;Transaction&gt; transactions = Arrays.asList(</span><br><span class="line">                <span class="keyword">new</span> Transaction(brian, <span class="number">2011</span>, <span class="number">300</span>),</span><br><span class="line">                <span class="keyword">new</span> Transaction(raoul, <span class="number">2012</span>, <span class="number">1000</span>),</span><br><span class="line">                <span class="keyword">new</span> Transaction(raoul, <span class="number">2011</span>, <span class="number">400</span>),</span><br><span class="line">                <span class="keyword">new</span> Transaction(mario, <span class="number">2012</span>, <span class="number">710</span>),</span><br><span class="line">                <span class="keyword">new</span> Transaction(mario, <span class="number">2012</span>, <span class="number">700</span>),</span><br><span class="line">                <span class="keyword">new</span> Transaction(alan, <span class="number">2012</span>, <span class="number">950</span>)</span><br><span class="line">            );</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"找出2011年发生的所有交易，并按交易额排序（从低到高）"</span>);</span><br><span class="line">        transactions.stream()</span><br><span class="line">            .filter(t -&gt; t.getYear() == <span class="number">2012</span>)    <span class="comment">//2011的交易</span></span><br><span class="line">            .sorted(comparing(Transaction::getValue))    <span class="comment">//排序</span></span><br><span class="line">            .forEach(t -&gt; System.out.println(t.toString()));</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"-------------------------------------"</span>);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"交易员都在哪些不同的城市工作过？"</span>);</span><br><span class="line">        transactions.stream()</span><br><span class="line">            .map(transaction -&gt; transaction.getTrader().getCity())</span><br><span class="line">            .distinct()</span><br><span class="line">            .forEach(System.out::println);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"-------------------------------------"</span>);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"查找所有来自剑桥的交易员，并按姓名排序"</span>);</span><br><span class="line">        transactions.stream()</span><br><span class="line">            .map(Transaction::getTrader)</span><br><span class="line">            .filter(trader -&gt; trader.getCity().equals(<span class="string">"Cambridge"</span>))</span><br><span class="line">            .sorted(comparing(Traders::getName))</span><br><span class="line">            .forEach(trader -&gt; System.out.println(trader.toString()));</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"-------------------------------------"</span>);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"返回所有交易员的姓名字符串，按字母顺序排序"</span>);</span><br><span class="line">        transactions.stream()</span><br><span class="line">            .map(Transaction::getTrader)</span><br><span class="line">            .distinct()</span><br><span class="line">            .sorted(comparing(Traders::getName))</span><br><span class="line">            .map(Traders::getName)</span><br><span class="line">            .forEach(System.out::println);</span><br><span class="line">        System.out.println(<span class="string">"or"</span>);</span><br><span class="line">        String traderStr = transactions.stream()</span><br><span class="line">                                        .map(transaction -&gt; transaction.getTrader().getName())</span><br><span class="line">                                        .distinct()</span><br><span class="line">                                        .sorted()</span><br><span class="line">                                        .reduce(<span class="string">""</span>, (n1, n2) -&gt; n1 + n2);</span><br><span class="line">        System.out.println(traderStr);</span><br><span class="line">        System.out.println(<span class="string">"以上方法效率不高，所有字符串都被反复链接，每次迭代的时候都要建立一个新的 String对象"</span>);</span><br><span class="line">        traderStr = transactions.stream()</span><br><span class="line">                .map(transaction -&gt; transaction.getTrader().getName())</span><br><span class="line">                .distinct()</span><br><span class="line">                .sorted()</span><br><span class="line">                .collect(Collectors.joining());</span><br><span class="line">        System.out.println(traderStr);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"-------------------------------------"</span>);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"有没有交易员是在米兰工作的"</span>);</span><br><span class="line">        <span class="keyword">boolean</span> milanBased = transactions.stream()</span><br><span class="line">                .anyMatch(transaction -&gt; transaction.getTrader().getCity().equals(<span class="string">"Milan"</span>));</span><br><span class="line">        System.out.println(milanBased);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"-------------------------------------"</span>);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"打印生活在剑桥的交易员的所有交易额"</span>);</span><br><span class="line">        transactions.stream()</span><br><span class="line">            .filter(transaction -&gt; transaction.getTrader().getCity().equals(<span class="string">"Cambridge"</span>))</span><br><span class="line">            .map(Transaction::getValue)</span><br><span class="line">            .forEach(System.out::println);;</span><br><span class="line">            </span><br><span class="line">        System.out.println(<span class="string">"-------------------------------------"</span>);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"所有交易额中，最高的交易额是多少"</span>);</span><br><span class="line">        Optional&lt;Integer&gt; highestValue = transactions.stream()</span><br><span class="line">                .map(Transaction::getValue)</span><br><span class="line">                .reduce(Integer::max);</span><br><span class="line">        System.out.println(highestValue);</span><br><span class="line">        </span><br><span class="line">        System.out.println(<span class="string">"-------------------------------------"</span>);</span><br><span class="line">        System.out.println(<span class="string">"找到交易额最小的交易"</span>);</span><br><span class="line">        Optional&lt;Transaction&gt; smallestTransaction = </span><br><span class="line">                transactions.stream()</span><br><span class="line">                            .reduce((t1, t2) -&gt; t1.getValue() &lt; t2.getValue() ? t1 : t2);</span><br><span class="line">        System.out.println(smallestTransaction.get().toString());</span><br><span class="line">        System.out.println(<span class="string">"or"</span>);</span><br><span class="line">        smallestTransaction = </span><br><span class="line">                transactions.stream()</span><br><span class="line">                            .min(comparing(Transaction::getValue));</span><br><span class="line">        System.out.println(smallestTransaction.get().toString());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>在线乞讨</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="王敏蕊 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="王敏蕊 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    王敏蕊
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://wangminrui.github.io/2019/07/26/Java8-7/" title="Java8：流的复杂操作">http://wangminrui.github.io/2019/07/26/Java8-7/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+            <a href="/tags/读书笔记/" rel="tag"><i class="fa fa-tag"></i> 读书笔记</a>
+          
+            <a href="/tags/Java8/" rel="tag"><i class="fa fa-tag"></i> Java8</a>
+          
+            <a href="/tags/《Java8实战》/" rel="tag"><i class="fa fa-tag"></i> 《Java8实战》</a>
+          
+            <a href="/tags/Java8-stream/" rel="tag"><i class="fa fa-tag"></i> Java8 stream</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/24/关于是否使用存储过程的疑惑/" rel="next" title="关于是否使用存储过程的疑惑">
+                <i class="fa fa-chevron-left"></i> 关于是否使用存储过程的疑惑
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/27/Java中import和import-static的区别/" rel="prev" title="Java中import和import static的区别">
+                Java中import和import static的区别 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="王敏蕊">
+            
+              <p class="site-author-name" itemprop="name">王敏蕊</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-筛选和切片"><span class="nav-text">1. 筛选和切片</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-filter-用谓词筛选"><span class="nav-text">1.1 filter: 用谓词筛选</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-distinct-筛选各异元素"><span class="nav-text">1.2 distinct: 筛选各异元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-limit-截短流"><span class="nav-text">1.3 limit: 截短流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-skip-跳过元素"><span class="nav-text">1.4 skip: 跳过元素</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-映射"><span class="nav-text">2. 映射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-map-对流中的每一个元素应用函数"><span class="nav-text">2.1 map: 对流中的每一个元素应用函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-flatMap-流的扁平化"><span class="nav-text">2.2 flatMap: 流的扁平化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-test"><span class="nav-text">2.3 test</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-查找和匹配"><span class="nav-text">3. 查找和匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-anyMatch-检查谓词是否至少匹配一个元素"><span class="nav-text">3.1 anyMatch: 检查谓词是否至少匹配一个元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-allMatch、noneMath-检查谓词是否匹配所有元素"><span class="nav-text">3.2 allMatch、noneMath: 检查谓词是否匹配所有元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-findAny-查找元素"><span class="nav-text">3.3 findAny: 查找元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-findFirst-查找第一个元素"><span class="nav-text">3.4 findFirst: 查找第一个元素</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-归约"><span class="nav-text">4. 归约</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-常用操作总结"><span class="nav-text">5. 常用操作总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-实战"><span class="nav-text">6. 实战</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王敏蕊</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">46k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+ 
+
+
+  <script src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

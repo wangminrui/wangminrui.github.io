@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="【非CCF推荐会议】Latent Semantic Indexing and Convolutional Neural Network for Multi-Label and Multi-Class TextClassification作者:Quispe, O (Quispe, Oscar)[ 1 ] ; Ocsa, A (Ocsa, Alexander)[ 1 ] ; Coronado, R (">
+<meta property="og:type" content="article">
+<meta property="og:title" content="论文search">
+<meta property="og:url" content="http://wangminrui.github.io/2019/07/16/论文search/index.html">
+<meta property="og:site_name" content="王敏蕊个人饲养间">
+<meta property="og:description" content="【非CCF推荐会议】Latent Semantic Indexing and Convolutional Neural Network for Multi-Label and Multi-Class TextClassification作者:Quispe, O (Quispe, Oscar)[ 1 ] ; Ocsa, A (Ocsa, Alexander)[ 1 ] ; Coronado, R (">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-30T06:17:00.352Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="论文search">
+<meta name="twitter:description" content="【非CCF推荐会议】Latent Semantic Indexing and Convolutional Neural Network for Multi-Label and Multi-Class TextClassification作者:Quispe, O (Quispe, Oscar)[ 1 ] ; Ocsa, A (Ocsa, Alexander)[ 1 ] ; Coronado, R (">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wangminrui.github.io/2019/07/16/论文search/">
+
+
+
+
+
+  <title>论文search | 王敏蕊个人饲养间</title>
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.10'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王敏蕊个人饲养间</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">三思而后言</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wangminrui.github.io/2019/07/16/论文search/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王敏蕊">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王敏蕊个人饲养间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">论文search</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T13:44:48+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-30T14:17:00+08:00">
+                2019-07-30
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/备忘录/" itemprop="url" rel="index">
+                    <span itemprop="name">备忘录</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/16/论文search/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/07/16/论文search/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="【非CCF推荐会议】Latent-Semantic-Indexing-and-Convolutional-Neural-Network-for-Multi-Label-and-Multi-Class-TextClassification"><a href="#【非CCF推荐会议】Latent-Semantic-Indexing-and-Convolutional-Neural-Network-for-Multi-Label-and-Multi-Class-TextClassification" class="headerlink" title="【非CCF推荐会议】Latent Semantic Indexing and Convolutional Neural Network for Multi-Label and Multi-Class TextClassification"></a>【非CCF推荐会议】Latent Semantic Indexing and Convolutional Neural Network for Multi-Label and Multi-Class TextClassification</h1><p>作者:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Quispe, O&amp;ut=12767817&amp;pos=1&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Quispe, O</a> (Quispe, Oscar)<strong>[ 1 ]</strong> ; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Ocsa, A&amp;ut=7615819&amp;pos=2&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Ocsa, A</a> (Ocsa, Alexander)<strong>[ 1 ]</strong> ; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Coronado, R&amp;ut=28582225&amp;pos=3&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Coronado, R</a> (Coronado, Ricardo)<strong>[ 1 ]</strong></p>
+<p>2017 IEEE LATIN AMERICAN CONFERENCE ON COMPUTATIONAL INTELLIGENCE (LA-CCI)</p>
+<p>书籍团体作者:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;field=GP&amp;value=IEEE" target="_blank" rel="noopener">IEEE</a></p>
+<p>出版年: 2017</p>
+<p>文献类型:Proceedings Paper</p>
+<p>会议名称</p>
+<p>会议: IEEE Latin American Conference on Computational Intelligence (LA-CCI) </p>
+<p>会议地点: Univ Catolica San Pablo, Arequipa, PERU</p>
+<p>会议日期: NOV 08-10, 2017</p>
+<p>会议赞助商:IEEE Computat Intelligence Soc; IEEE</p>
+<p>摘要</p>
+<p>The classification of a real text should not be necessarily treated as a binary or multi-class classification, since the text may belong to one or more labels. This type of problem is called multi-label classification. In this paper, we propose the use of latent semantic indexing to text representation, convolutional neural networks to feature extraction and a single multi layer perceptron for multi-label classification in real text data. The experiments show that the model outperforms state of the art techniques when the dataset has long documents, and we observe that the precision is poor when the size of the texts is small.</p>
+<p>关键词</p>
+<p>作者关键词:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Latent+Semantic+Indexing&amp;uncondQuotes=true" target="_blank" rel="noopener">Latent Semantic Indexing</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Convolution+Neural+Network&amp;uncondQuotes=true" target="_blank" rel="noopener">Convolution Neural Network</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Multi+Label+Classification&amp;uncondQuotes=true" target="_blank" rel="noopener">Multi Label Classification</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Text+Classification&amp;uncondQuotes=true" target="_blank" rel="noopener">Text Classification</a></p>
+<h1 id="【非CCF推荐会议】Ranking-in-Multi-Label-Classification-of-Text-Documents-Using-Quantifiers"><a href="#【非CCF推荐会议】Ranking-in-Multi-Label-Classification-of-Text-Documents-Using-Quantifiers" class="headerlink" title="【非CCF推荐会议】Ranking in Multi Label Classification of Text Documents Using Quantifiers"></a>【非CCF推荐会议】Ranking in Multi Label Classification of Text Documents Using Quantifiers</h1><p>作者:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Jindal, R&amp;ut=2241965&amp;pos=1&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Jindal, R</a> (Jindal, Rajni)<strong>[ 1 ]</strong> ; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Taneja, S&amp;ut=3609990&amp;pos=2&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Taneja, S</a> (Taneja, Shweta)<strong>[ 1 ]</strong></p>
+<p>Proceedings 5th IEEE International Conference on Control System, Computing and Engineering (ICCSCE 2015)</p>
+<p>书籍团体作者:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;field=GP&amp;value=IEEE" target="_blank" rel="noopener">IEEE</a></p>
+<p>页: 162-166</p>
+<p>出版年: 2015</p>
+<p>文献类型:Proceedings Paper</p>
+<p>会议名称</p>
+<p>会议: 5th IEEE International Conference on Control System, Computing and Engineering (ICCSCE)</p>
+<p>会议地点: Batu Ferringhi, MALAYSIA</p>
+<p>会议日期: NOV 27-29, 2015</p>
+<p>会议赞助商:IEEE; IEEE Control Syst Soc Chapter Malaysia; IEEE Malaysia Chapter; Univ Teknologi Mara</p>
+<p>摘要</p>
+<p>In today’s world, many real world examples are based on multi label classification. A single document may belong to a set of class labels simultaneously. The process of ranking i.e. strict ordering of class labels is of great concern here. We have used the concept of quantifiers for ranking of class labels. We have proposed eight new quantifiers, which calculate the degree of membership of class labels of a particular text document. As a result, we are able to perform ranking of class labels in multi label learning. The proposed approach is shown with the help of a case study.</p>
+<p>关键词</p>
+<p>作者关键词:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Text+Mining&amp;uncondQuotes=true" target="_blank" rel="noopener">Text Mining</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Multi+label+text+classification&amp;uncondQuotes=true" target="_blank" rel="noopener">Multi label text classification</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Ranking&amp;uncondQuotes=true" target="_blank" rel="noopener">Ranking</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Quantifiers&amp;uncondQuotes=true" target="_blank" rel="noopener">Quantifiers</a></p>
+<h1 id="【非CCF推荐会议】A-Pipeline-for-Optimizing-F1-Measure-in-Multi-Label-Text-Classification"><a href="#【非CCF推荐会议】A-Pipeline-for-Optimizing-F1-Measure-in-Multi-Label-Text-Classification" class="headerlink" title="【非CCF推荐会议】A Pipeline for Optimizing F1-Measure in Multi-Label Text Classification"></a>【非CCF推荐会议】A Pipeline for Optimizing F1-Measure in Multi-Label Text Classification</h1><p>作者:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Wang, BY&amp;ut=876159&amp;pos=1&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Wang, BY</a> (Wang, Bingyu)<strong>[ 1 ]</strong> ; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Li, C&amp;ut=13033937&amp;pos=2&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Li, C</a> (Li, Cheng)<strong>[ 1 ]</strong> ; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Pavlu, V&amp;ut=4007765&amp;pos=3&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Pavlu, V</a> (Pavlu, Virgil)<strong>[ 1 ]</strong> ; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Aslam, J&amp;ut=29944780&amp;pos=4&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Aslam, J</a> (Aslam, Jay)<strong>[ 1 ]</strong></p>
+<p>2018 17TH IEEE INTERNATIONAL CONFERENCE ON MACHINE LEARNING AND APPLICATIONS (ICMLA)</p>
+<p>编者:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=ED&amp;value=Wani, MA" target="_blank" rel="noopener">Wani, MA</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=ED&amp;value=Kantardzic, M" target="_blank" rel="noopener">Kantardzic, M</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=ED&amp;value=Sayedmouchaweh, M" target="_blank" rel="noopener">Sayedmouchaweh, M</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=ED&amp;value=Gama, J" target="_blank" rel="noopener">Gama, J</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=ED&amp;value=Lughofer, E" target="_blank" rel="noopener">Lughofer, E</a></p>
+<p>页: 913-918</p>
+<p>DOI: 10.1109/ICMLA.2018.00148</p>
+<p>出版年: 2018</p>
+<p>文献类型:Proceedings Paper</p>
+<p>会议名称</p>
+<p>会议: 17th IEEE International Conference on Machine Learning and Applications (IEEE ICMLA)</p>
+<p>会议地点: Orlando, FL</p>
+<p>会议日期: DEC 17-20, 2018</p>
+<p>会议赞助商:IEEE; Assoc Machine Learning &amp; Applicat</p>
+<p>摘要</p>
+<p>Multi-label text classification is the machine learning task wherein each document is tagged with multiple labels, and this task is uniquely challenging due to high dimensional features and correlated labels. Such text classifiers need to be regularized to prevent severe over-fitting in the high dimensional space, and they also need to take into account label dependencies in order to make accurate predictions under uncertainty. Many classic multi-label learning algorithms focus on incorporating label dependencies in the model training phase and optimize for the strict set-accuracy measure. We propose a new pipeline which takes such algorithms and improves their F1-performance with careful training regularization and a new prediction strategy based on support inference, calibration and GFM, to the point that classic multi-label models are able to outperform recent sophisticated methods (PDsparse, SPEN) and models (LSF, CFT, CLEMS) designed specifically to be multi-label F-optimal. Beyond performance and practical contributions, we further demonstrate that support inference acts as a strong regularizer on the label prediction structure.</p>
+<p>关键词</p>
+<p>作者关键词:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=multi-label&amp;uncondQuotes=true" target="_blank" rel="noopener">multi-label</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=f-measure&amp;uncondQuotes=true" target="_blank" rel="noopener">f-measure</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=text+classification&amp;uncondQuotes=true" target="_blank" rel="noopener">text classification</a></p>
+<h1 id="【非CCF推荐会议】Multi-label-Classification-Systems-by-the-Use-of-Supervised-Clustering"><a href="#【非CCF推荐会议】Multi-label-Classification-Systems-by-the-Use-of-Supervised-Clustering" class="headerlink" title="【非CCF推荐会议】Multi-label Classification Systems by the Use of Supervised Clustering"></a>【非CCF推荐会议】Multi-label Classification Systems by the Use of Supervised Clustering</h1><p>作者:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Rastin, N&amp;ut=27543438&amp;pos=1&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Rastin, N</a> (Rastin, Niloofar)<strong>[ 1 ]</strong> ; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Jahromi, MZ&amp;ut=850062&amp;pos=2&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Jahromi, MZ</a> (Jahromi, Mansoor Zolghadri)<strong>[ 1 ]</strong> ; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Taheri, M&amp;ut=796441&amp;pos=3&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Taheri, M</a> (Taheri, Mohammad)<strong>[ 1 ]</strong></p>
+<p><a href="javascript:hide_show(&#39;show_resc_blurb&#39;," title="inline" target="_blank" rel="noopener">查看 Web of Science ResearcherID 和 ORCID</a>;hide_show(‘show_resc_blurb_link’, ‘none’);hide_show(‘hide_resc_blurb_link’, ‘inline’))</p>
+<p>2017 19TH CSI INTERNATIONAL SYMPOSIUM ON ARTIFICIAL INTELLIGENCE AND SIGNAL PROCESSING (AISP)</p>
+<p>书籍团体作者:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;field=GP&amp;value=IEEE" target="_blank" rel="noopener">IEEE</a></p>
+<p>页: 246-249</p>
+<p>出版年: 2017</p>
+<p>文献类型:Proceedings Paper</p>
+<p>会议名称</p>
+<p>会议: 19th CSI International Symposium on Artificial Intelligence and Signal Processing (AISP)</p>
+<p>会议地点: Shiraz, IRAN</p>
+<p>会议日期: OCT 25-27, 2017</p>
+<p>会议赞助商:Shiraz Univ; CSI</p>
+<p>摘要</p>
+<p>Multi-label classification problem involves finding a model that maps a set of input features to more than one output labels. It is well known that, exploiting label correlations is important for multi-label learning. In this paper, a supervised clustering-based multi-label classification method is proposed that uses supervised clustering for considering label correlations. The proposed approach enhanced the performance of multi-label classification systems in comparison with the state of the art. Experimental results on a number of image, music and text datasets validate the effectiveness of the proposed approach.</p>
+<p>关键词</p>
+<p>作者关键词:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=multi-label+classification&amp;uncondQuotes=true" target="_blank" rel="noopener">multi-label classification</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=label+correlations&amp;uncondQuotes=true" target="_blank" rel="noopener">label correlations</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=supervised+clustering&amp;uncondQuotes=true" target="_blank" rel="noopener">supervised clustering</a></p>
+<h1 id="【非CCF推荐会议】Multi-Label-Classification-Using-Labelled-Association"><a href="#【非CCF推荐会议】Multi-Label-Classification-Using-Labelled-Association" class="headerlink" title="【非CCF推荐会议】Multi-Label Classification Using Labelled Association"></a>【非CCF推荐会议】Multi-Label Classification Using Labelled Association</h1><p>作者:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Kase, Y&amp;ut=11827977&amp;pos=1&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Kase, Y</a> (Kase, Yuichiro)<strong>[ 1 ]</strong> ; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Miura, T&amp;ut=432019&amp;pos=2&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Miura, T</a> (Miura, Takao)<strong>[ 1 ]</strong></p>
+<p>2015 IEEE PACIFIC RIM CONFERENCE ON COMMUNICATIONS, COMPUTERS AND SIGNAL PROCESSING (PACRIM)</p>
+<p>书籍团体作者:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;field=GP&amp;value=IEEE" target="_blank" rel="noopener">IEEE</a></p>
+<p>丛书: IEEE Pacific Rim Conference on Communications Computers and Signal Processing</p>
+<p>页: 90-95</p>
+<p>出版年: 2015</p>
+<p>文献类型:Proceedings Paper</p>
+<p>会议名称</p>
+<p>会议: IEEE Pacific Rim Conference on Communications, Computers and Signal Processing (PACRIM)</p>
+<p>会议地点: Victoria, CANADA</p>
+<p>会议日期: AUG 24-26, 2015</p>
+<p>会议赞助商:IEEE; Univ Victoria</p>
+<p>摘要</p>
+<p>In this investigation we discuss a multi-label classification problem where documents may have several labels. We put our focus on dependencies among labels in a probabilistic manner, and we extract characteristic features in a form of probabilistic distribution functions by data mining techniques. We show some experimental results, i.e., dependencies among items/labels to see the effectiveness of the approach.</p>
+<p>关键词</p>
+<p>作者关键词:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Classification&amp;uncondQuotes=true" target="_blank" rel="noopener">Classification</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Multi-label+Classification&amp;uncondQuotes=true" target="_blank" rel="noopener">Multi-label Classification</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Data+Mining&amp;uncondQuotes=true" target="_blank" rel="noopener">Data Mining</a></p>
+<h1 id="【非CCF推荐会议】Labeled-Bilingual-Topic-Model-for-Cross-Lingual-Text-Classification-and-Label-Recommendation"><a href="#【非CCF推荐会议】Labeled-Bilingual-Topic-Model-for-Cross-Lingual-Text-Classification-and-Label-Recommendation" class="headerlink" title="【非CCF推荐会议】Labeled Bilingual Topic Model for Cross-Lingual Text Classification and Label Recommendation"></a>【非CCF推荐会议】Labeled Bilingual Topic Model for Cross-Lingual Text Classification and Label Recommendation</h1><p>作者:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Tian, MJ&amp;ut=7953471&amp;pos=1&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Tian, MJ</a> (Tian, Ming-Jie)<strong>[ 1 ]</strong> ; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Huang, ZH&amp;ut=6666450&amp;pos=2&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Huang, ZH</a> (Huang, Zheng-Hao)<strong>[ 1 ]</strong> ; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Cui, RY&amp;ut=1857071&amp;pos=3&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Cui, RY</a> (Cui, Rong-Yi)<strong>[ 1 ]</strong></p>
+<p>2018 5TH INTERNATIONAL CONFERENCE ON INFORMATION SCIENCE AND CONTROL ENGINEERING (ICISCE 2018)</p>
+<p>编者:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=ED&amp;value=Li, S" target="_blank" rel="noopener">Li, S</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=ED&amp;value=Dai, Y" target="_blank" rel="noopener">Dai, Y</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=ED&amp;value=Cheng, Y" target="_blank" rel="noopener">Cheng, Y</a></p>
+<p>页: 285-289</p>
+<p>DOI: 10.1109/ICISCE.2018.00067</p>
+<p>出版年: 2018</p>
+<p>文献类型:Proceedings Paper</p>
+<p>会议名称</p>
+<p>会议: 5th International Conference on Information Science and Control Engineering (ICISCE)</p>
+<p>会议地点: Zhengzhou, PEOPLES R CHINA</p>
+<p>会议日期: JUL 20-22, 2018</p>
+<p>会议赞助商:IEEE Comp Soc; Henan Univ Sci &amp; Technol; Swinburne Univ Technol; Hunan Univ; Wayne State Univ; Minjiang Univ; Beijing Univ Civil Engn &amp; Architecture; Xiamen Univ; China Jiliang Univ; Iwate Prefectural Univ; Hunan Univ Humanities, Sci &amp; Technol</p>
+<p>摘要</p>
+<p>Aiming at the increasingly rich multi language information resources and multi-label data in news reports and scientific literatures, in order to mining the relevance between languages and the correlation between data, this paper proposed labeled bilingual topic model, applied on cross-lingual textclassification and label recommendation. First of all, it could assume that the keywords in the scientific literature are relevant to the abstract in same article, then extracted the keywords and regarded it as labels, and aligned the labels with topics in topic model, instantiated the “latent” topic. Secondly, trained the abstracts in article through the topic model proposed by this paper. Finally, classified the new documents by cross-lingual text classifier, also recommended the labels. The experiment result show that Micro-F1 measure reaches 94.81% in cross-lingual text classification task, and the recommended labels also reflects the sematic relevance with documents.</p>
+<p>关键词</p>
+<p>作者关键词:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=topic+model&amp;uncondQuotes=true" target="_blank" rel="noopener">topic model</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=label&amp;uncondQuotes=true" target="_blank" rel="noopener">label</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=cross-lingual+text+classification&amp;uncondQuotes=true" target="_blank" rel="noopener">cross-lingual text classification</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=label+recommendation&amp;uncondQuotes=true" target="_blank" rel="noopener">label recommendation</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=latent+topic&amp;uncondQuotes=true" target="_blank" rel="noopener">latent topic</a></p>
+<h1 id="【CCF推荐C类期刊】A-multi-label-classification-based-approach-for-sentiment-classification"><a href="#【CCF推荐C类期刊】A-multi-label-classification-based-approach-for-sentiment-classification" class="headerlink" title="【CCF推荐C类期刊】A multi-label classification based approach for sentiment classification"></a>【CCF推荐C类期刊】A multi-label classification based approach for sentiment classification</h1><p>作者:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Liu, SM&amp;ut=8033426&amp;pos=1&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Liu, SM</a> (Liu, Shuhua Monica)<strong>[ 1 ]</strong> ; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Chen, JH&amp;ut=3553671&amp;pos=2&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Chen, JH</a> (Chen, Jiun-Hung)<strong>[ 1 ]</strong></p>
+<p>EXPERT SYSTEMS WITH APPLICATIONS</p>
+<p>卷: 42</p>
+<p>期: 3</p>
+<p>页: 1083-1093</p>
+<p>DOI: 10.1016/j.eswa.2014.08.036</p>
+<p>出版年: FEB 15 2015</p>
+<p>文献类型:Article</p>
+<p><a href="javascript:;" target="_blank" rel="noopener">查看期刊影响力</a></p>
+<p>摘要</p>
+<p>A multi-label classification based approach for sentiment analysis is proposed in this paper. To the best of our knowledge, this work is the first to propose to use multi-label classification for sentiment classification of microblogs. The proposed prototype has three main components, text segmentation, feature extraction, and multi-label classification. </p>
+<p>Raw segmented words and sentiment features based on the three different sentiment dictionaries, Dalian University of Technology Sentiment Dictionary, National Taiwan University Sentiment Dictionary and HowNet Dictionary, are the features and the bag of words is the feature representation. </p>
+<p>A detailed empirical study of different multi-label classification methods on sentiment classification is conducted to compare their classificationperformances. Specifically, total 11 state of the art multi-label classification methods are compared on two microblog datasets and 8 evaluation metrics are used. The effects of the three sentiment dictionaries for multi-label classification are empirically studied and compared, which, to the best of our knowledge, have not been performed. The performed empirical comparisons show that Dalian University of Technology Sentiment Dictionary has the best performance among the three different sentiment dictionaries. (C) 2014 Elsevier Ltd. All rights reserved.</p>
+<p>本文提出了一种基于多标签分类的情感分析方法。 据我们所知，这项工作是第一个提出使用多标签分类进行微博情感分类的工作。 提出的原型有三个主要组成部分，文本分割，特征提取和多标签分类。</p>
+<p>基于三种不同情感词典，大连理工大学情感词典，国立台湾大学情感词典和知网词典的原始分词和情感特征是词的特征和包，是特征表示。</p>
+<p>对情感分类的不同多标签分类方法进行了详细的实证研究，以比较其分类表现。 具体地，在两个微博数据集上比较总共11个现有技术的多标签分类方法，并且使用8个评估度量。 三种情感词典对多标签分类的影响是根据经验研究和比较的，据我们所知，尚未进行过。 所进行的实证比较表明，大连理工大学情感词典在三种不同的情感词典中表现最佳。 （C）2014 Elsevier Ltd.保留所有权利。</p>
+<p>关键词</p>
+<p>作者关键词:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Sentiment+analysis&amp;uncondQuotes=true" target="_blank" rel="noopener">Sentiment analysis</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Multi-label+classification&amp;uncondQuotes=true" target="_blank" rel="noopener">Multi-label classification</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Microblogs&amp;uncondQuotes=true" target="_blank" rel="noopener">Microblogs</a></p>
+<h1 id="【CCF推荐C类期刊】Multi-label-classification-using-hierarchical-embedding"><a href="#【CCF推荐C类期刊】Multi-label-classification-using-hierarchical-embedding" class="headerlink" title="【CCF推荐C类期刊】Multi-label classification using hierarchical embedding"></a>【CCF推荐C类期刊】Multi-label classification using hierarchical embedding</h1><p>作者:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Kumar, V&amp;ut=683969&amp;pos=1&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Kumar, V</a> (Kumar, Vikas)<strong>[ 1 ]</strong> ; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Pujari, AK&amp;ut=483622&amp;pos=2&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Pujari, AK</a> (Pujari, Arun K.)<strong>[ 1,2 ]</strong> ; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Padmanabhan, V&amp;ut=532946&amp;pos=3&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Padmanabhan, V</a> (Padmanabhan, Vineet)<strong>[ 1 ]</strong> ; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Sahu, SK&amp;ut=5589289&amp;pos=4&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Sahu, SK</a> (Sahu, Sandeep Kumar)<strong>[ 1 ]</strong> ; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Kagita, VR&amp;ut=3224839&amp;pos=5&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Kagita, VR</a> (Kagita, Venkateswara Rao)<strong>[ 1 ]</strong></p>
+<p>EXPERT SYSTEMS WITH APPLICATIONS</p>
+<p>卷: 91</p>
+<p>页: 263-269</p>
+<p>DOI: 10.1016/j.eswa.2017.09.020</p>
+<p>出版年: JAN 2018</p>
+<p>文献类型:Article</p>
+<p><a href="javascript:;" target="_blank" rel="noopener">查看期刊影响力</a></p>
+<p>摘要</p>
+<p>Multi-label learning is concerned with the classification of data with multiple class labels. This is in contrast to the traditional classification problem where every data instance has a single label. Multi-label classification (MLC) is a major research area in the machine learning community and finds application in several domains such as computer vision, data mining and text classification. Due to the exponential size of the output space, exploiting intrinsic information in feature and label spaces has been the major thrust of research in recent years and use of parametrization and embedding have been the prime focus in MLC. Most of the existing methods learn a single linear parametrization using the entire training set and hence, fail to capture nonlinear intrinsic information in feature and label spaces. To overcome this, we propose a piecewise-linear embedding which uses maximum margin matrix factorization to model linear parametrization. We hypothesize that feature vectors which conform to similar embedding are similar in some sense. Combining the above concepts, we propose a novel hierarchical matrix factorization method for multi-label classification. Practical multi-label classification problems such as image annotation, text categorization and sentiment analysis can be directly solved by the proposed method. We compare our method with six well-known algorithms on twelve benchmark datasets. Our experimental analysis manifests the superiority of our proposed method over state-of-art algorithm for multi-label learning. (C) 2017 Elsevier Ltd. All rights reserved.</p>
+<p>多标签学习涉及具有多个类标签的数据分类。 这与传统的分类问题形成对比，传统的分类问题是每个数据实例都有一个标签。 多标签分类（MLC）是机器学习社区中的一个主要研究领域，可应用于计算机视觉，数据挖掘和文本分类等多个领域。 由于输出空间的指数大小，利用特征和标签空间中的内在信息已成为近年来研究的主要推动力，参数化和嵌入的使用一直是MLC的主要关注点。 <strong>大多数现有方法使用整个训练集学习单个线性参数化，因此无法捕获特征和标签空间中的非线性内在信息</strong>。 为了克服这个问题，我们提出了一种分段线性嵌入，它使用最大边缘矩阵分解来模拟线性参数化。 我们假设符合类似嵌入的特征向量在某种意义上是相似的。 结合上述概念，<strong>我们提出了一种用于多标签分类的新型分层矩阵分解方法</strong>。 通过所提出的方法可以直接解决实际的多标签分类问题，例如图像标注，文本分类和情感分析。 我们将我们的方法与12个基准数据集上的六个众所周知的算法进行比较。 我们的实验分析表明我们提出的方法优于多标签学习的最新算法。 （C）2017 Elsevier Ltd.保留所有权利。</p>
+<p>关键词</p>
+<p>作者关键词:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Multi-label+learning&amp;uncondQuotes=true" target="_blank" rel="noopener">Multi-label learning</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Matrix+factorization&amp;uncondQuotes=true" target="_blank" rel="noopener">Matrix factorization</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=Label+correlation&amp;uncondQuotes=true" target="_blank" rel="noopener">Label correlation</a></p>
+<p>KeyWords Plus:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=TEXT+CATEGORIZATION&amp;uncondQuotes=true" target="_blank" rel="noopener">TEXT CATEGORIZATION</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=FEATURES&amp;uncondQuotes=true" target="_blank" rel="noopener">FEATURES</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=SYSTEM&amp;uncondQuotes=true" target="_blank" rel="noopener">SYSTEM</a></p>
+<h2 id="贡献"><a href="#贡献" class="headerlink" title="贡献"></a>贡献</h2><h1 id="【CCF推荐C类会议】Text-Classification-The-Case-of-Multiple-Labels"><a href="#【CCF推荐C类会议】Text-Classification-The-Case-of-Multiple-Labels" class="headerlink" title="【CCF推荐C类会议】Text Classification: The Case of Multiple Labels"></a>【CCF推荐C类会议】Text Classification: The Case of Multiple Labels</h1><p>作者:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=AU&amp;value=Bobicev, V&amp;ut=4424014&amp;pos=1&amp;excludeEventConfig=ExcludeIfFromFullRecPage" target="_blank" rel="noopener">Bobicev, V</a> (Bobicev, Victoria)<strong>[ 1 ]</strong></p>
+<p>2016 INTERNATIONAL CONFERENCE ON COMMUNICATIONS (COMM 2016)</p>
+<p>书籍团体作者:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;SID=8FpVlqfY6tE9qJE3khp&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;field=GP&amp;value=IEEE" target="_blank" rel="noopener">IEEE</a></p>
+<p>丛书: International Conference on Communications (ICC)</p>
+<p>页: 39-42</p>
+<p>出版年: 2016</p>
+<p>文献类型:Proceedings Paper</p>
+<p>会议名称</p>
+<p>会议: IEEE 11th International Conference on Communications (COMM)</p>
+<p>会议地点: Bucharest, ROMANIA</p>
+<p>会议日期: JUN 09-11, 2016</p>
+<p>会议赞助商:Mil Tech Acad; Politehnica Univ Bucharest; IEEE</p>
+<p>摘要</p>
+<p>Analysis of subjectivity is the actively developed direction of research in text mining. The paper presents machine learning experiments on classification of sentiments in forum texts. We explore the difficult task of classification when texts are labeled by several sentiment labels and in this condition we reach the average F-measure equal to 0.805.</p>
+<p>关键词</p>
+<p>作者关键词:<a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=machine+learning&amp;uncondQuotes=true" target="_blank" rel="noopener">machine learning</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=natural+language+processing&amp;uncondQuotes=true" target="_blank" rel="noopener">natural language processing</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=text+classification&amp;uncondQuotes=true" target="_blank" rel="noopener">text classification</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=sentiment+analysis&amp;uncondQuotes=true" target="_blank" rel="noopener">sentiment analysis</a>; <a href="http://apps.webofknowledge.com/OneClickSearch.do?product=UA&amp;search_mode=OneClickSearch&amp;excludeEventConfig=ExcludeIfFromFullRecPage&amp;SID=8FpVlqfY6tE9qJE3khp&amp;field=TS&amp;value=multi-label+classification&amp;uncondQuotes=true" target="_blank" rel="noopener">multi-label classification</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>在线乞讨</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="王敏蕊 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="王敏蕊 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    王敏蕊
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://wangminrui.github.io/2019/07/16/论文search/" title="论文search">http://wangminrui.github.io/2019/07/16/论文search/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/16/beam学习-二/" rel="next" title="beam学习(二):WordCount">
+                <i class="fa fa-chevron-left"></i> beam学习(二):WordCount
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/16/Leetcode338/" rel="prev" title="Leetcode338:Counting Bits">
+                Leetcode338:Counting Bits <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="王敏蕊">
+            
+              <p class="site-author-name" itemprop="name">王敏蕊</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#【非CCF推荐会议】Latent-Semantic-Indexing-and-Convolutional-Neural-Network-for-Multi-Label-and-Multi-Class-TextClassification"><span class="nav-text">【非CCF推荐会议】Latent Semantic Indexing and Convolutional Neural Network for Multi-Label and Multi-Class TextClassification</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【非CCF推荐会议】Ranking-in-Multi-Label-Classification-of-Text-Documents-Using-Quantifiers"><span class="nav-text">【非CCF推荐会议】Ranking in Multi Label Classification of Text Documents Using Quantifiers</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【非CCF推荐会议】A-Pipeline-for-Optimizing-F1-Measure-in-Multi-Label-Text-Classification"><span class="nav-text">【非CCF推荐会议】A Pipeline for Optimizing F1-Measure in Multi-Label Text Classification</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【非CCF推荐会议】Multi-label-Classification-Systems-by-the-Use-of-Supervised-Clustering"><span class="nav-text">【非CCF推荐会议】Multi-label Classification Systems by the Use of Supervised Clustering</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【非CCF推荐会议】Multi-Label-Classification-Using-Labelled-Association"><span class="nav-text">【非CCF推荐会议】Multi-Label Classification Using Labelled Association</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【非CCF推荐会议】Labeled-Bilingual-Topic-Model-for-Cross-Lingual-Text-Classification-and-Label-Recommendation"><span class="nav-text">【非CCF推荐会议】Labeled Bilingual Topic Model for Cross-Lingual Text Classification and Label Recommendation</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【CCF推荐C类期刊】A-multi-label-classification-based-approach-for-sentiment-classification"><span class="nav-text">【CCF推荐C类期刊】A multi-label classification based approach for sentiment classification</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【CCF推荐C类期刊】Multi-label-classification-using-hierarchical-embedding"><span class="nav-text">【CCF推荐C类期刊】Multi-label classification using hierarchical embedding</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#贡献"><span class="nav-text">贡献</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#【CCF推荐C类会议】Text-Classification-The-Case-of-Multiple-Labels"><span class="nav-text">【CCF推荐C类会议】Text Classification: The Case of Multiple Labels</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王敏蕊</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">46k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+ 
+
+
+  <script src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

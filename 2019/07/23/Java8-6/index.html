@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Java,读书笔记,Java8,《Java8实战》,Java8 stream,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1. 为什么要使用流集合是Java中使用最多的API，几乎每个Java应用程序都会制造和处理集合，但集合操作却远远算不上完美：  无法声明式地完成数据操作：很多业务逻辑都涉及类似于数据库的操作，比如：在菜肴中找出低卡路里的菜，如果使用集合操作，需要用迭代器迭代很多遍，但是在SQL语句中，只需要声明式地指定操作：select name from dishes where calorie &amp;lt; 4">
+<meta name="keywords" content="Java,读书笔记,Java8,《Java8实战》,Java8 stream">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java8：流的基本概念与基本操作">
+<meta property="og:url" content="http://wangminrui.github.io/2019/07/23/Java8-6/index.html">
+<meta property="og:site_name" content="王敏蕊个人饲养间">
+<meta property="og:description" content="1. 为什么要使用流集合是Java中使用最多的API，几乎每个Java应用程序都会制造和处理集合，但集合操作却远远算不上完美：  无法声明式地完成数据操作：很多业务逻辑都涉及类似于数据库的操作，比如：在菜肴中找出低卡路里的菜，如果使用集合操作，需要用迭代器迭代很多遍，但是在SQL语句中，只需要声明式地指定操作：select name from dishes where calorie &amp;lt; 4">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-07-30T06:10:43.402Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java8：流的基本概念与基本操作">
+<meta name="twitter:description" content="1. 为什么要使用流集合是Java中使用最多的API，几乎每个Java应用程序都会制造和处理集合，但集合操作却远远算不上完美：  无法声明式地完成数据操作：很多业务逻辑都涉及类似于数据库的操作，比如：在菜肴中找出低卡路里的菜，如果使用集合操作，需要用迭代器迭代很多遍，但是在SQL语句中，只需要声明式地指定操作：select name from dishes where calorie &amp;lt; 4">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":true,"scrollpercent":true,"onmobile":true},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://wangminrui.github.io/2019/07/23/Java8-6/">
+
+
+
+
+
+  <title>Java8：流的基本概念与基本操作 | 王敏蕊个人饲养间</title>
+  
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '',
+      xfbml      : true,
+      version    : 'v2.10'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/zh_Hans/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王敏蕊个人饲养间</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">三思而后言</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://wangminrui.github.io/2019/07/23/Java8-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王敏蕊">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王敏蕊个人饲养间">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java8：流的基本概念与基本操作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-23T15:34:35+08:00">
+                2019-07-23
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-30T14:10:43+08:00">
+                2019-07-30
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/Java/Java8/" itemprop="url" rel="index">
+                    <span itemprop="name">Java8</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/07/23/Java8-6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/07/23/Java8-6/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-为什么要使用流"><a href="#1-为什么要使用流" class="headerlink" title="1. 为什么要使用流"></a>1. 为什么要使用流</h1><p>集合是Java中使用最多的API，几乎每个Java应用程序都会制造和处理集合，<strong>但集合操作却远远算不上完美</strong>：</p>
+<ul>
+<li><strong>无法声明式地完成数据操作：</strong>很多业务逻辑都涉及类似于数据库的操作，比如：在菜肴中找出低卡路里的菜，如果使用集合操作，需要用迭代器迭代很多遍，但是在SQL语句中，只需要声明式地指定操作：<code>select name from dishes where calorie &lt; 400</code></li>
+<li><strong>大数据量时很麻烦：</strong>处理大量数据时，很可能需要并行操作，集合的并行代码更加复杂，调试也很困难</li>
+</ul>
+<a id="more"></a>
+<h1 id="2-什么是流"><a href="#2-什么是流" class="headerlink" title="2. 什么是流"></a>2. 什么是流</h1><p>流是Java API的新成员</p>
+<p>流允许<strong>以声明式方式处理数据集合（通过查询语句来表达，而不是临时编写一个实现）</strong>，可以看作是<strong>遍历数据的高级迭代器</strong></p>
+<p>流可以<strong>透明地并行处理数据</strong>，无需编写任何多线程代码</p>
+<h2 id="2-1-流的定义"><a href="#2-1-流的定义" class="headerlink" title="2.1 流的定义"></a>2.1 流的定义</h2><blockquote>
+<p>流是从支持数据处理操作的源生成的元素序列</p>
+</blockquote>
+<p>将定义拆开来看：</p>
+<ol>
+<li>元素序列：<ul>
+<li>就像集合一样，流也提供了一个接口，可以访问特定元素类型的一组有序值</li>
+<li>集合是数据结构，它的主要目的是以特定的时间/空间复杂度存储和访问元素（如ArrayList、LinkedList）</li>
+<li>流的目的在于表达计算（如filter、sorted、map等）</li>
+<li>集合讲的是数据，流讲的是计算</li>
+</ul>
+</li>
+<li>源：<ul>
+<li>流需要一个可以提供数据的源</li>
+<li>流的源可以是：集合、数组或输入/输出资源</li>
+<li>从有序集合生成的流会保持原有的顺序</li>
+</ul>
+</li>
+<li>数据处理操作：<ul>
+<li>支持数据处理操作中的数据处理操作类似数据库的操作，已经函数式编程语言常用的操作</li>
+<li>如filter、map、reduce、find、match、sort等</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-2-流的特点"><a href="#2-2-流的特点" class="headerlink" title="2.2 流的特点"></a>2.2 流的特点</h2><ol>
+<li>流水线：<ul>
+<li>很多流操作本身会返回一个流，这样多个操作可以链接起来</li>
+<li>这样使得一些优化成为可能，如延迟和短路</li>
+<li>流水线的操作可以看作对数据源进行数据库式查询</li>
+</ul>
+</li>
+<li>内部迭代<ul>
+<li>集合的迭代器属于显示迭代</li>
+<li>流的迭代式在背后进行的，成为内部迭代</li>
+</ul>
+</li>
+</ol>
+<h2 id="2-3-一个例子：Java7和Java8的对比"><a href="#2-3-一个例子：Java7和Java8的对比" class="headerlink" title="2.3 一个例子：Java7和Java8的对比"></a>2.3 一个例子：Java7和Java8的对比</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//需求：返回低热量的菜肴名称</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Java7</span></span><br><span class="line">List&lt;Dish&gt; lowCaloricDishes = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (Dish d : menu)&#123;</span><br><span class="line">    <span class="keyword">if</span> (d.getCalories() &lt; <span class="number">400</span>)&#123;</span><br><span class="line">        lowCaloricDishes.add(d);	<span class="comment">//累加器筛选元素</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">Collections.sort(lowCaloriesDishes, <span class="keyword">new</span> Comparator&lt;Dish&gt;()&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compare</span><span class="params">(Dish d1, Dish d2)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> Integer.compare(d1.getCalories(), d2.getCalories());	<span class="comment">//用匿名类对菜肴排序</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line">List&lt;String&gt; lowCaloricDishesName = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span> (Dish d : lowCaloricDishes)&#123;</span><br><span class="line">    lowCaloricDishesName.add(d.getName());	<span class="comment">//低热量的菜肴名称列表</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Java8</span></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.util.Comparator.comparing;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.util.stream.Collectors.toList;</span><br><span class="line">List&lt;String&gt; lowCaloricDishesName = </span><br><span class="line">    			menu.stream()</span><br><span class="line">    				.filter(d -&gt; d.getCalories() &lt; <span class="number">400</span>)		<span class="comment">//选出400卡路里以下的菜肴</span></span><br><span class="line">    				.sorted(comparing(Dish::getCalories))		<span class="comment">//按照卡路里排序</span></span><br><span class="line">    				.map(Dish::getName)				<span class="comment">//提取菜肴的名称</span></span><br><span class="line">    				.collect(toList());</span><br><span class="line"></span><br><span class="line"><span class="comment">//如果要利用多核架构并行执行这段代码，只需要把stream()换成parallelStream()</span></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.util.Comparator.comparing;</span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.util.stream.Collectors.toList;</span><br><span class="line">List&lt;String&gt; lowCaloricDishesName = </span><br><span class="line">    			menu.parallelStream()</span><br><span class="line">    				.filter(d -&gt; d.getCalories() &lt; <span class="number">400</span>)		<span class="comment">//选出400卡路里以下的菜肴</span></span><br><span class="line">    				.sorted(comparing(Dish::getCalories))		<span class="comment">//按照卡路里排序</span></span><br><span class="line">    				.map(Dish::getName)				<span class="comment">//提取菜肴的名称</span></span><br><span class="line">    				.collect(toList());</span><br></pre></td></tr></table></figure>
+<p>Java8 流处理的好处是显而易见的：</p>
+<ul>
+<li><strong>代码以声明性方式写的：</strong>说明想要完成什么（筛选热量低的菜肴）而不是说明如何实现一个操作（利用循环和if条件等控制流语句），这种方式加上行为参数化能够很轻松地应对需求的变化。<code>--声明性：更简洁、更易读</code></li>
+<li><strong>可以把基础操作链接起来：</strong>基础操作组合称复杂的数据处理流水线，同时保持代码清晰可读。<code>--可复合：更灵活</code></li>
+<li><strong>充分利用多核架构：</strong>filter、sorted、map等操作是与线程模型无关的高层次构建，他们的内部数显可以是单线程的，也可以透明地利用多核架构，而完全不用担心线程和锁。<code>--可并行：性能更好</code></li>
+</ul>
+<h2 id="2-4-另一个例子：完整的流操作"><a href="#2-4-另一个例子：完整的流操作" class="headerlink" title="2.4 另一个例子：完整的流操作"></a>2.4 另一个例子：完整的流操作</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.util.stream.Collections.toList;</span><br><span class="line">List&lt;String&gt; threeHighCaloricDishNames = </span><br><span class="line">    menu.stream()</span><br><span class="line">    	.filter(d -&gt; getCalories() &gt; <span class="number">300</span>)	<span class="comment">//接受Lambda，从流中派出某些元素</span></span><br><span class="line">    	.map(Dish::getName)			<span class="comment">//接受Lambda，把元素转化称其他形式或提取信息</span></span><br><span class="line">    	.limit(<span class="number">3</span>)				<span class="comment">//截断流，使其元素不超过给定数量</span></span><br><span class="line">    	.collect(toList());			<span class="comment">//将流转换为其他形式</span></span><br><span class="line">System.out.println(threeHighCaloricDishName);</span><br></pre></td></tr></table></figure>
+<h1 id="3-流和集合的区别"><a href="#3-流和集合的区别" class="headerlink" title="3. 流和集合的区别"></a>3. 流和集合的区别</h1><h2 id="3-1-区别一览"><a href="#3-1-区别一览" class="headerlink" title="3.1 区别一览"></a>3.1 区别一览</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">流</th>
+<th style="text-align:center">集合</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">就像在线播放的视频流</td>
+<td style="text-align:center">就像存在本地的视频</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">概念上固定的数据结构（不能增删数据）</td>
+<td style="text-align:center">内存中真实的数据结构</td>
+</tr>
+<tr>
+<td style="text-align:center">计算时间</td>
+<td style="text-align:center">按需计算</td>
+<td style="text-align:center">数据都得算出来才能成为集合的一部分</td>
+</tr>
+<tr>
+<td style="text-align:center">遍历次数</td>
+<td style="text-align:center">只能遍历一次</td>
+<td style="text-align:center">如果不使用迭代器，可以遍历多次</td>
+</tr>
+<tr>
+<td style="text-align:center">迭代方式</td>
+<td style="text-align:center">内部迭代</td>
+<td style="text-align:center">外部迭代</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="3-2-概念的差异"><a href="#3-2-概念的差异" class="headerlink" title="3.2 概念的差异"></a>3.2 概念的差异</h2><p>粗略地说，集合和流之间的差异<strong>在于什么时候进行计算</strong>。</p>
+<p>集合是一个内存中的数据结构，它包含数据结构中目前所有的值—集合中的每个元素都得先算出来才能添加到集合中。（可以随时向集合中添加、删除元素，但每个元素都是必须先算出来，再成为集合的一部分，并存在内存中）<br>流是概念上固定的数据结构（不能增删数据），其元素是按需计算的。用户仅仅从流中提取需要的值，这些值像是一个延迟创建的集合，只有需要时才会计算（按需生成）。<br>而集合是急切创建的，如果想要创建一个包含所有质数的集合，那这个程序算起来就没完没了了，因为总有新的指数要算，然后把它加到集合里，这个集合永远也创建不了。</p>
+<h2 id="3-3-外部迭代和内部迭代"><a href="#3-3-外部迭代和内部迭代" class="headerlink" title="3.3  外部迭代和内部迭代"></a>3.3  外部迭代和内部迭代</h2><p><strong>外部迭代：</strong> 使用Collection接口需要用户去做迭代，比如用for-each</p>
+<p><strong>内部迭代：</strong> Streams库中帮用户把迭代做了，还把得到的流值存在了某个地方，用户只要给出一个函数说要搞什么就行了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 集合，用for-each循环外部迭代</span></span><br><span class="line">List&lt;String&gt; names = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line"><span class="keyword">for</span>(Dish d : menu)&#123;</span><br><span class="line">    names.add(d.getName());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//集合：用背后的迭代器做外部迭代</span></span><br><span class="line">List&lt;String names = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">Iterator&lt;String&gt; iterator = menu.iterator();</span><br><span class="line"><span class="keyword">while</span>(iterator.hasNext())&#123;</span><br><span class="line">    Dish d = iterator.next();</span><br><span class="line">    names.add(d.getName());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//流：内部迭代</span></span><br><span class="line">List&lt;String&gt; names = menu.stream()</span><br><span class="line">    	.map(Dish::getName)</span><br><span class="line">    	.collect(toList()));</span><br></pre></td></tr></table></figure>
+<h1 id="4-流操作"><a href="#4-流操作" class="headerlink" title="4. 流操作"></a>4. 流操作</h1><p><code>java.util.stream.Stream</code>中的Stream接口中定义了许多操作，它们可以分为两大类：中间操作、终端操作。</p>
+<h2 id="4-1-中间操作"><a href="#4-1-中间操作" class="headerlink" title="4.1 中间操作"></a>4.1 中间操作</h2><p>可以连接起来的六操作称为中间操作</p>
+<p>filter、sorted、map等都是中间操作，中间操作接受一个流，然后返回另一个流，中间操作可以链接起来形成流水线。<strong>除非流水线上触发终端操作，否则中间操作不会执行任何处理</strong>，这是因为中间操作一般都可以合并，在终端操作时一次性全部处理。</p>
+<p>下面看一个例子，把每一步的数据打印出来，以了解流的中间操作做了什么</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">List&lt;String&gt; names = </span><br><span class="line">    menu.stream()</span><br><span class="line">    	.filter(d -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"filtering"</span> + d.getName());<span class="comment">//打印当前筛选菜肴</span></span><br><span class="line">            <span class="keyword">return</span> d.getCalores &gt; <span class="number">300</span>;</span><br><span class="line">        &#125;)</span><br><span class="line">    	.map(d -&gt; &#123;</span><br><span class="line">            System.out.println(<span class="string">"mapping"</span> + d.getName());<span class="comment">//打印菜名</span></span><br><span class="line">            <span class="keyword">return</span> d.getName();</span><br><span class="line">        &#125;)</span><br><span class="line">    	.limit(<span class="number">3</span>)</span><br><span class="line">    	.collect(toList());</span><br><span class="line">System.out.println(names);</span><br><span class="line"></span><br><span class="line"><span class="comment">//打印结果</span></span><br><span class="line"><span class="comment">//filtering pork</span></span><br><span class="line"><span class="comment">//mapping pork</span></span><br><span class="line"><span class="comment">//filtering beef</span></span><br><span class="line"><span class="comment">//mapping beef</span></span><br><span class="line"><span class="comment">//filtering chicken</span></span><br><span class="line"><span class="comment">//mapping chicken</span></span><br><span class="line"><span class="comment">//[pork, beef, chicken]</span></span><br></pre></td></tr></table></figure>
+<p>从打印结果来看，不同菜肴并不是最后一起处理的，这里面利用的流的<strong>延迟性质</strong></p>
+<ol>
+<li>尽管很多菜的热量都高于300卡路里，但是只选出了前三个，这是limit操作中使用的<strong>短路</strong>技巧</li>
+<li>尽管filter和map是两个独立的操作，但他们合并到同一次遍历了（我们把这种技术叫做<strong>循环合并</strong>）</li>
+</ol>
+<h2 id="4-2-终端操作"><a href="#4-2-终端操作" class="headerlink" title="4.2 终端操作"></a>4.2 终端操作</h2><p>关闭流的操作称为终端操作</p>
+<p>终端操作会从流的流水线生成结果，其结果是任何不是流的值，比如List、Integer，甚至void。比如，collect操作生成一个结果，forEach是一个返回void的终端操作，它会对源中的每个元素应用一个Lambda</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">menu.stream().forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+<h2 id="4-3-使用流"><a href="#4-3-使用流" class="headerlink" title="4.3 使用流"></a>4.3 使用流</h2><p>总之，流的使用一般包括三件事：</p>
+<ul>
+<li>一个数据源（如集合）来执行一个查询</li>
+<li>一个中间操作链，形成一条流的流水线</li>
+<li>一个终端操作，执行流水线，并生成结果</li>
+</ul>
+<p>流的流水线背后的理念类似于构建器模式。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>在线乞讨</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="王敏蕊 微信支付">
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="王敏蕊 支付宝">
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    王敏蕊
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://wangminrui.github.io/2019/07/23/Java8-6/" title="Java8：流的基本概念与基本操作">http://wangminrui.github.io/2019/07/23/Java8-6/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
+          
+            <a href="/tags/读书笔记/" rel="tag"><i class="fa fa-tag"></i> 读书笔记</a>
+          
+            <a href="/tags/Java8/" rel="tag"><i class="fa fa-tag"></i> Java8</a>
+          
+            <a href="/tags/《Java8实战》/" rel="tag"><i class="fa fa-tag"></i> 《Java8实战》</a>
+          
+            <a href="/tags/Java8-stream/" rel="tag"><i class="fa fa-tag"></i> Java8 stream</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/19/Java8-5/" rel="next" title="Java8：复合Lambda表达式">
+                <i class="fa fa-chevron-left"></i> Java8：复合Lambda表达式
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/24/关于是否使用存储过程的疑惑/" rel="prev" title="关于是否使用存储过程的疑惑">
+                关于是否使用存储过程的疑惑 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        
+  <script>
+    window._bd_share_config = {
+      "common": {
+        "bdText": "",
+        "bdMini": "1",
+        "bdMiniList": false,
+        "bdPic": ""
+      },
+      "image": {
+        "viewList": ["tsina", "douban", "sqq", "qzone", "weixin", "twi", "fbook"],
+        "viewText": "分享到：",
+        "viewSize": "16"
+      },
+      "slide": {
+        "bdImg": "5",
+        "bdPos": "left",
+        "bdTop": "100"
+      }
+    }
+  </script>
+
+<script>
+  with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='//bdimg.share.baidu.com/static/api/js/share.js?cdnversion='+~(-new Date()/36e5)];
+</script>
+
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+      <div id="sidebar-dimmer"></div>
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/images/avatar.jpg" alt="王敏蕊">
+            
+              <p class="site-author-name" itemprop="name">王敏蕊</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-为什么要使用流"><span class="nav-text">1. 为什么要使用流</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-什么是流"><span class="nav-text">2. 什么是流</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-流的定义"><span class="nav-text">2.1 流的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-流的特点"><span class="nav-text">2.2 流的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-一个例子：Java7和Java8的对比"><span class="nav-text">2.3 一个例子：Java7和Java8的对比</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-另一个例子：完整的流操作"><span class="nav-text">2.4 另一个例子：完整的流操作</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-流和集合的区别"><span class="nav-text">3. 流和集合的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-区别一览"><span class="nav-text">3.1 区别一览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-概念的差异"><span class="nav-text">3.2 概念的差异</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-外部迭代和内部迭代"><span class="nav-text">3.3  外部迭代和内部迭代</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-流操作"><span class="nav-text">4. 流操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-中间操作"><span class="nav-text">4.1 中间操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-终端操作"><span class="nav-text">4.2 终端操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-使用流"><span class="nav-text">4.3 使用流</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+        <div class="back-to-top">
+          <i class="fa fa-arrow-up"></i>
+          
+            <span id="scrollpercent"><span>0</span>%</span>
+          
+        </div>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王敏蕊</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">46k</span>
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.4</div>
+
+
+ 
+
+
+  <script src="https://unpkg.com/mermaid@8.0.0/dist/mermaid.min.js"></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
