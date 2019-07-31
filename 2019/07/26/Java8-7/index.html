@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="王敏蕊个人饲养间">
 <meta property="og:description" content="1. 筛选和切片如何选择流中的元素：用谓词筛选，筛选出各不相同的元素，忽略流中的头几个元素，或将流截短至指定长度 1.1 filter: 用谓词筛选filter接受一个谓词Predicate&amp;lt;T&amp;gt;，返回一个包括所有符合谓词元素的流。 1234//筛选出所有素材，创建一张素食菜单List&amp;lt;Dish&amp;gt; vegetarianMenu = menu.stream()">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-30T08:14:32.291Z">
+<meta property="og:updated_time" content="2019-07-31T09:03:42.593Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java8：流的复杂操作">
 <meta name="twitter:description" content="1. 筛选和切片如何选择流中的元素：用谓词筛选，筛选出各不相同的元素，忽略流中的头几个元素，或将流截短至指定长度 1.1 filter: 用谓词筛选filter接受一个谓词Predicate&amp;lt;T&amp;gt;，返回一个包括所有符合谓词元素的流。 1234//筛选出所有素材，创建一张素食菜单List&amp;lt;Dish&amp;gt; vegetarianMenu = menu.stream()">
@@ -358,8 +358,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-30T16:14:32+08:00">
-                2019-07-30
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-31T17:03:42+08:00">
+                2019-07-31
               </time>
             
           </span>
@@ -440,7 +440,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2k
+                  3.1k
                 </span>
               
 
@@ -456,7 +456,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  9
+                  13
                 </span>
               
             </div>
@@ -500,8 +500,169 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 看菜单中是否由素食可以选择</span></span><br><span class="line"><span class="keyword">if</span> (menu.stream().anyMatch(Dish::isVegetarian))&#123;</span><br><span class="line">    System.out.println(<span class="string">"The menu is (somewhat) vegetarian friendly!!"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="3-2-allMatch、noneMath-检查谓词是否匹配所有元素"><a href="#3-2-allMatch、noneMath-检查谓词是否匹配所有元素" class="headerlink" title="3.2 allMatch、noneMath: 检查谓词是否匹配所有元素"></a>3.2 allMatch、noneMath: 检查谓词是否匹配所有元素</h2><p><code>allMatch</code>方法接受谓词参数，返回boolean类型，判断流中的元素是否都能匹配给定的谓词</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 所有菜是否都低于1000卡路里</span></span><br><span class="line"><span class="keyword">boolean</span> isHealthy = menu.stream()</span><br><span class="line">    			.allMatch(d -&gt; d.getCalorires() &lt; <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
-<p><code>noneMath</code>方法与<code>allMatch</code>完全相反，</p>
-<h2 id="3-3-findAny-查找元素"><a href="#3-3-findAny-查找元素" class="headerlink" title="3.3 findAny: 查找元素"></a>3.3 findAny: 查找元素</h2><h2 id="3-4-findFirst-查找第一个元素"><a href="#3-4-findFirst-查找第一个元素" class="headerlink" title="3.4 findFirst: 查找第一个元素"></a>3.4 findFirst: 查找第一个元素</h2><h1 id="4-归约"><a href="#4-归约" class="headerlink" title="4. 归约"></a>4. 归约</h1><h1 id="5-常用操作总结"><a href="#5-常用操作总结" class="headerlink" title="5. 常用操作总结"></a>5. 常用操作总结</h1><h1 id="6-实战"><a href="#6-实战" class="headerlink" title="6. 实战"></a>6. 实战</h1><p>背景：</p>
+<p><code>noneMath</code>方法与<code>allMatch</code>完全相反，它用来判断流中元素是否都<code>不能</code>匹配给定的谓词</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 所有菜是否都低于1000卡路里</span></span><br><span class="line"><span class="keyword">boolean</span> isHealthy = menu.stream()</span><br><span class="line">    			.noneMatch(d -&gt; d.getCalorires() &gt;= <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a href="../../../../2019/07/28/Java中的短路求值"><strong>短路求值</strong></a>：不需要处理整个流就得到结果</p>
+<p>anyMatch、allMatch和noneMatch都用到了<strong>短路</strong>操作</p>
+<p>这种操作可以把无限流变成有限流</p>
+</blockquote>
+<h2 id="3-3-findAny-查找元素"><a href="#3-3-findAny-查找元素" class="headerlink" title="3.3 findAny: 查找元素"></a>3.3 findAny: 查找元素</h2><p><code>findAny</code>方法接受一个函数作为参数，返回当前流中的任意元素，可以和其他流操作结合使用</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 找一道素食菜肴</span></span><br><span class="line">Optional&lt;Dish&gt; dish = </span><br><span class="line">    menu.stream()</span><br><span class="line">    	.filter(Dish::isVegetarian)</span><br><span class="line">    	.findAny();</span><br><span class="line">		.ifPresent(d -&gt; System.out.println(d.getName()));	<span class="comment">//在找到素食菜肴时打印出来</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>Optional类</strong></p>
+<p><code>Optional&lt;T&gt;</code>类（java.util.Optional）是一个容器类，代表一个值存在或不存在</p>
+<p>用Optional接受返回值，不用担心null的问题，避免了和null检查相关的bug</p>
+<p>Optional中有几种显式检查值是否存在或处理值不存在的情形的方法：</p>
+<ul>
+<li><code>isPresent()</code>：Optional包含值的时候返回true，否则返回false</li>
+<li><code>ifPresent(Consumer&lt;T&gt; block)</code>：在值存在时执行给定代码块</li>
+<li><code>T get()</code>：在值存在时返回值，否则抛出一个NoSuchElement异常</li>
+<li><code>T orElse(T other)</code>：在值存在时返回值，否则返回一个默认值</li>
+</ul>
+</blockquote>
+<h2 id="3-4-findFirst-查找第一个元素"><a href="#3-4-findFirst-查找第一个元素" class="headerlink" title="3.4 findFirst: 查找第一个元素"></a>3.4 findFirst: 查找第一个元素</h2><p><code>findFirst</code>方法接受一个函数作为参数，返回当前流中的第一个元素</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 找到第一个平方能被3整除的数</span></span><br><span class="line">List&lt;Integer&gt; someNumbers = Arrays.asList(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>);</span><br><span class="line">Optional&lt;Integer&gt; firstSquareDivisibleByThree = </span><br><span class="line">    	someNumbers.stream()</span><br><span class="line">    	.map(x -&gt; x*x)</span><br><span class="line">    	.filter(x -&gt; x%<span class="number">3</span> == <span class="number">0</span>)</span><br><span class="line">    	.findFirst();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>findFirst方法比findAny方法在并行上限制更多</p>
+</blockquote>
+<h1 id="4-归约"><a href="#4-归约" class="headerlink" title="4. 归约"></a>4. 归约</h1><p>将一个流中的元素组合起来，使用reduce操作来表达更加复杂的查询</p>
+<h2 id="4-1-元素求和"><a href="#4-1-元素求和" class="headerlink" title="4.1 元素求和"></a>4.1 元素求和</h2><p><code>reduce</code>方法用Lambda反复结合每个元素，直到流被归约，它接受两个参数：</p>
+<ul>
+<li>初始值</li>
+<li><code>BinaryOperator&lt;T&gt;</code>：将两个元素结合起来产生一个新值</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Java8之前，求和操作</span></span><br><span class="line"><span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> x : numbers)&#123;</span><br><span class="line">    sum += x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Java8</span></span><br><span class="line"><span class="keyword">int</span> sum = numbers.stream().reduce(<span class="number">0</span>, (a,b) -&gt; a+b);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 当没有初始值时</span></span><br><span class="line">Optional&lt;Integer&gt; sum = numbers.stream().reduce((a,b) -&gt; a+b);</span><br></pre></td></tr></table></figure>
+<p><strong>reduce操作是如何对一个数字流求和的？</strong><br>如果有一个数据流：{2，4，6}，首先，0作为Lambda的第一个参数，从流中获得第二个参数2，形成新的累积值。然后再用累积值和流中的下一个元素4调用Lambda，产生新的累积值，重复以上过程，得到最终结果12。</p>
+<h2 id="4-2-最大值和最小值"><a href="#4-2-最大值和最小值" class="headerlink" title="4.2 最大值和最小值"></a>4.2 最大值和最小值</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求最大值</span></span><br><span class="line">Optional&lt;Integer&gt; max = numbers.stream().reduce(Integer::max);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 求最小值</span></span><br><span class="line">Optional&lt;Integer&gt; min = numbers.stream().reduce(Integer::min);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 计算菜肴数</span></span><br><span class="line"><span class="keyword">long</span> count = menu.stream().count();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 利用map和reduce计算菜肴数</span></span><br><span class="line"><span class="keyword">int</span> count = menu.stream()</span><br><span class="line">    .map(d -&gt; <span class="number">1</span>)	<span class="comment">//将流中每个元素都映射成数字1，然后用reduce求和</span></span><br><span class="line">    .reduce(<span class="number">0</span>, (a, b) -&gt; a+b);</span><br></pre></td></tr></table></figure>
+<h1 id="5-常用操作总结"><a href="#5-常用操作总结" class="headerlink" title="5. 常用操作总结"></a>5. 常用操作总结</h1><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">返回类型</th>
+<th style="text-align:center">使用的类型/函数式接口</th>
+<th style="text-align:center">函数描述符</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">filter</td>
+<td style="text-align:center">中间</td>
+<td style="text-align:center"><code>Stream&lt;T&gt;</code></td>
+<td style="text-align:center"><code>Predicate&lt;T&gt;</code></td>
+<td style="text-align:center">T -&gt; boolean</td>
+</tr>
+<tr>
+<td style="text-align:center">distinct</td>
+<td style="text-align:center">中间（有状态-无界）</td>
+<td style="text-align:center"><code>Stream&lt;T&gt;</code></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">skip</td>
+<td style="text-align:center">中间（有状态-无界）</td>
+<td style="text-align:center"><code>Stream&lt;T&gt;</code></td>
+<td style="text-align:center">long</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">limit</td>
+<td style="text-align:center">中间（有状态-无界）</td>
+<td style="text-align:center"><code>Stream&lt;T&gt;</code></td>
+<td style="text-align:center">long</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">map</td>
+<td style="text-align:center">中间</td>
+<td style="text-align:center"><code>Stream&lt;R&gt;</code></td>
+<td style="text-align:center"><code>Function&lt;T,R&gt;</code></td>
+<td style="text-align:center">T -&gt; R</td>
+</tr>
+<tr>
+<td style="text-align:center">flatMap</td>
+<td style="text-align:center">中间</td>
+<td style="text-align:center"><code>Stream&lt;R&gt;</code></td>
+<td style="text-align:center"><code>Function&lt;T, Stream&lt;R&gt;&gt;</code></td>
+<td style="text-align:center">T -&gt; <code>Stream&lt;R&gt;</code></td>
+</tr>
+<tr>
+<td style="text-align:center">sorted</td>
+<td style="text-align:center">中间（有状态-无界）</td>
+<td style="text-align:center"><code>Stream&lt;T&gt;</code></td>
+<td style="text-align:center"><code>Comparator&lt;T&gt;</code></td>
+<td style="text-align:center">(T, T) -&gt; int</td>
+</tr>
+<tr>
+<td style="text-align:center">anyMatch</td>
+<td style="text-align:center">终端</td>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center"><code>Predicate&lt;T&gt;</code></td>
+<td style="text-align:center">T -&gt; boolean</td>
+</tr>
+<tr>
+<td style="text-align:center">noneMatch</td>
+<td style="text-align:center">终端</td>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center"><code>Predicate&lt;T&gt;</code></td>
+<td style="text-align:center">T -&gt; boolean</td>
+</tr>
+<tr>
+<td style="text-align:center">allMatch</td>
+<td style="text-align:center">终端</td>
+<td style="text-align:center">boolean</td>
+<td style="text-align:center"><code>Predicate&lt;T&gt;</code></td>
+<td style="text-align:center">T -&gt; boolean</td>
+</tr>
+<tr>
+<td style="text-align:center">findAny</td>
+<td style="text-align:center">终端</td>
+<td style="text-align:center">Optional<t></t></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">findFirst</td>
+<td style="text-align:center">终端</td>
+<td style="text-align:center">Optional<t></t></td>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">forEach</td>
+<td style="text-align:center">终端</td>
+<td style="text-align:center">void</td>
+<td style="text-align:center"><code>Consumer&lt;T&gt;</code></td>
+<td style="text-align:center">T -&gt; void</td>
+</tr>
+<tr>
+<td style="text-align:center">collect</td>
+<td style="text-align:center">终端</td>
+<td style="text-align:center">R</td>
+<td style="text-align:center"><code>Collector&lt;T, A, R&gt;</code></td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">reduce</td>
+<td style="text-align:center">终端（有状态-无界）</td>
+<td style="text-align:center">Optional<t></t></td>
+<td style="text-align:center"><code>BinaryOperator&lt;T&gt;</code></td>
+<td style="text-align:center">(T, T) -&gt; T</td>
+</tr>
+<tr>
+<td style="text-align:center">count</td>
+<td style="text-align:center">终端</td>
+<td style="text-align:center">long</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>流操作：有状态和无状态</strong><br>map、filter等操作都是无状态的：他们<code>没有内部状态</code><br>reduce、sum、max等操作都是有状态的：他们<code>需要内部状态来累积结果</code><br>sort、distinct等操作本来和map和filter差不多—都是接受一个流，再生成一个流，但有一个关键区别是，sort和distinct都需要知道先前的历史，即要求将流中所有元素放入缓冲区才能进行操作，这对存储要求是<code>无界的</code>，要是流比较大或是无限的，就可能会有问题，这种操作叫做<code>有状态操作</code>。</p>
+<h1 id="6-实战"><a href="#6-实战" class="headerlink" title="6. 实战"></a>6. 实战</h1><p>背景：</p>
 <ul>
 <li>交易员类</li>
 </ul>
@@ -735,7 +896,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">49</span>
+                  <span class="site-state-item-count">53</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -746,7 +907,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">27</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -757,7 +918,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">41</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -790,7 +951,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-筛选和切片"><span class="nav-text">1. 筛选和切片</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-filter-用谓词筛选"><span class="nav-text">1.1 filter: 用谓词筛选</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-distinct-筛选各异元素"><span class="nav-text">1.2 distinct: 筛选各异元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-limit-截短流"><span class="nav-text">1.3 limit: 截短流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-skip-跳过元素"><span class="nav-text">1.4 skip: 跳过元素</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-映射"><span class="nav-text">2. 映射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-map-对流中的每一个元素应用函数"><span class="nav-text">2.1 map: 对流中的每一个元素应用函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-flatMap-流的扁平化"><span class="nav-text">2.2 flatMap: 流的扁平化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-test"><span class="nav-text">2.3 test</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-查找和匹配"><span class="nav-text">3. 查找和匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-anyMatch-检查谓词是否至少匹配一个元素"><span class="nav-text">3.1 anyMatch: 检查谓词是否至少匹配一个元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-allMatch、noneMath-检查谓词是否匹配所有元素"><span class="nav-text">3.2 allMatch、noneMath: 检查谓词是否匹配所有元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-findAny-查找元素"><span class="nav-text">3.3 findAny: 查找元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-findFirst-查找第一个元素"><span class="nav-text">3.4 findFirst: 查找第一个元素</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-归约"><span class="nav-text">4. 归约</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-常用操作总结"><span class="nav-text">5. 常用操作总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-实战"><span class="nav-text">6. 实战</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-筛选和切片"><span class="nav-text">1. 筛选和切片</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-filter-用谓词筛选"><span class="nav-text">1.1 filter: 用谓词筛选</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-distinct-筛选各异元素"><span class="nav-text">1.2 distinct: 筛选各异元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-limit-截短流"><span class="nav-text">1.3 limit: 截短流</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-skip-跳过元素"><span class="nav-text">1.4 skip: 跳过元素</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-映射"><span class="nav-text">2. 映射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-map-对流中的每一个元素应用函数"><span class="nav-text">2.1 map: 对流中的每一个元素应用函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-flatMap-流的扁平化"><span class="nav-text">2.2 flatMap: 流的扁平化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-test"><span class="nav-text">2.3 test</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-查找和匹配"><span class="nav-text">3. 查找和匹配</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-anyMatch-检查谓词是否至少匹配一个元素"><span class="nav-text">3.1 anyMatch: 检查谓词是否至少匹配一个元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-allMatch、noneMath-检查谓词是否匹配所有元素"><span class="nav-text">3.2 allMatch、noneMath: 检查谓词是否匹配所有元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-findAny-查找元素"><span class="nav-text">3.3 findAny: 查找元素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-4-findFirst-查找第一个元素"><span class="nav-text">3.4 findFirst: 查找第一个元素</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-归约"><span class="nav-text">4. 归约</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-元素求和"><span class="nav-text">4.1 元素求和</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-最大值和最小值"><span class="nav-text">4.2 最大值和最小值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-常用操作总结"><span class="nav-text">5. 常用操作总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-实战"><span class="nav-text">6. 实战</span></a></li></ol></div>
             
 
           </div>
@@ -831,7 +992,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">46k</span>
+    <span title="Site words total count">51.1k</span>
   
 </div>
 
