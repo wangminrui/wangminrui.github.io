@@ -356,8 +356,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-30T22:05:00+08:00">
-                2019-07-30
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-31T23:19:21+08:00">
+                2019-07-31
               </time>
             
           </span>
@@ -406,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3
+                  203
                 </span>
               
 
@@ -444,9 +444,16 @@
 
       
         
-          
-            <h1 id="1-Hash法"><a href="#1-Hash法" class="headerlink" title="1. Hash法"></a>1. Hash法</h1>
-          
+          <h1 id="1-Hash法"><a href="#1-Hash法" class="headerlink" title="1. Hash法"></a>1. Hash法</h1><p>Hash一般称为散列，关于散列表的知识，可参见<a href="../../../../2019/03/14/数据结构-2">数据结构：散列表</a></p>
+<p>Hash主要用来“快速存取”，因为它可以在$O(1)$的时间复杂度下查找到目标元素，或者判断其是否存在。</p>
+<p><strong>适合的问题：</strong><br>在处理海量数据的过程中，使用Hash方法一般可以<strong>快速存取、统计某些数据</strong>，将大量数据进行分类，例如提取某日访问网站次数最多的IP地址等。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/30/海量数据处理方法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -540,7 +547,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-31T20:08:49+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-31T22:35:31+08:00">
                 2019-07-31
               </time>
             
@@ -650,25 +657,17 @@
 
       
         
-          
-            <h1 id="1-为什么数值流会做特殊处理？"><a href="#1-为什么数值流会做特殊处理？" class="headerlink" title="1. 为什么数值流会做特殊处理？"></a>1. 为什么数值流会做特殊处理？</h1><p>eg：计算一个菜单中所有菜的热量总和</p>
+          <h1 id="1-为什么数值流会做特殊处理？"><a href="#1-为什么数值流会做特殊处理？" class="headerlink" title="1. 为什么数值流会做特殊处理？"></a>1. 为什么数值流会做特殊处理？</h1><p>eg：计算一个菜单中所有菜的热量总和</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> calories = menu.stream()</span><br><span class="line">    		.map(Dish::getCalories)</span><br><span class="line">    		.reduce(<span class="number">0</span>, Integer::sum)</span><br></pre></td></tr></table></figure>
 <p>上述代码虽然能够实现计算一个菜单中所有菜热量总和的功能，但是却<strong>暗含了装箱成本</strong>。每个Integer都必须拆箱成一个原始类型，再进行求和。</p>
 <p>虽然流中的元素是Integer类型，但Streams接口没有定义sum方法（因为如果把<code>Stream&lt;Dish&gt;</code>这样的进行sum操作是没有任何意义的），因此Stream API提供<strong>原始类型特化</strong>，专门支持处理数值流。</p>
-<h1 id="2-原始类型流特化"><a href="#2-原始类型流特化" class="headerlink" title="2. 原始类型流特化"></a>2. 原始类型流特化</h1><p>Java 8引入了三个原始类型特化流接口来解决这个问题：<code>IntStream</code>、<code>DoubleStream</code>和<code>LongStream</code>，分别将流中的元素特化为<code>int</code>、<code>long</code>和<code>double</code>，<strong>从而避免了暗含的装箱成本</strong>。</p>
-<h2 id="2-1-映射到数值流"><a href="#2-1-映射到数值流" class="headerlink" title="2.1 映射到数值流"></a>2.1 映射到数值流</h2><p>流转换为特化版本的常用方法是：<code>mapToInt</code>、<code>mapToDouble</code>和<code>mapToLong</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 计算一个菜单中所有菜的热量总和</span></span><br><span class="line"><span class="keyword">int</span> calories = menu.stream()</span><br><span class="line">    		.mapToInt(Dish::getCalories)	<span class="comment">//返回一个IntStream</span></span><br><span class="line">    		.sum()	<span class="comment">//如果流是空的，sum默认返回0</span></span><br></pre></td></tr></table></figure>
-<p>IntStream还支持其他方法，如：max、min、average等</p>
-<h2 id="2-2-转换回对象流"><a href="#2-2-转换回对象流" class="headerlink" title="2.2 转换回对象流"></a>2.2 转换回对象流</h2><p>数值流转换回对象流使用<code>boxed</code>方法</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">IntStream intStream = menu.stream().mapToInt(Dish::getCalories);</span><br><span class="line">Stream&lt;Integer&gt; stream = intStream.boxed();	<span class="comment">//将IntStream转化回Stream</span></span><br></pre></td></tr></table></figure>
-<h2 id="2-3-默认值OptionalInt"><a href="#2-3-默认值OptionalInt" class="headerlink" title="2.3 默认值OptionalInt"></a>2.3 默认值OptionalInt</h2><p>求和时如果为空，返回默认值0，这样的操作是可以的。<br>但如果计算最大元素，返回0时如何判断这是空返回的0，还是求得的最大元素就是0？<br>因此，对接受返回值的Optional类也有特化版本：<code>OptionalInt</code>、<code>OptionalDouble</code>和<code>OptionalLong</code></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">OptionalInt maxCalories = menu.stream()</span><br><span class="line">    			.mapToInt(Dish::getCalories)</span><br><span class="line">    			.max();</span><br><span class="line"><span class="keyword">int</span> max = maxCalories.orElse(<span class="number">1</span>);	<span class="comment">//如果没有最大值，显式提供一个默认最大值</span></span><br></pre></td></tr></table></figure>
-<h1 id="3-数值范围"><a href="#3-数值范围" class="headerlink" title="3. 数值范围"></a>3. 数值范围</h1><p>生成一个数值范围之间的数可以用IntStream和LongStream中的静态方法：<code>range</code>和<code>rangeClosed</code>。这两个方法接受两个参数：起始值和结束值。其中，<code>range</code>是不包含结束值的，而<code>rangeClosed</code>包含结束值。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">IntStream evenNumbers = IntStream.rangeClosed(<span class="number">1</span>, <span class="number">100</span>).</span><br><span class="line">    			.filter(n -&gt; n%<span class="number">2</span> == <span class="number">0</span>);	<span class="comment">//从1到100的偶数</span></span><br><span class="line">System.out.println(evenNumbers.count());	<span class="comment">//50个偶数，如果用range方法的化，将输出49</span></span><br></pre></td></tr></table></figure>
-<h1 id="4-一个例子：勾股数"><a href="#4-一个例子：勾股数" class="headerlink" title="4. 一个例子：勾股数"></a>4. 一个例子：勾股数</h1><p>勾股数指满足 $a^2+b^2=c^2$ 的三元组 $(a,b,c)$</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Stream&lt;<span class="keyword">int</span>[]&gt; pythagoreanTiples = </span><br><span class="line">    IntStream.rangeClosed(<span class="number">1</span>, <span class="number">100</span>).boxed()</span><br><span class="line">    	.flatMap(a -&gt;</span><br><span class="line">                IntStream.rangeClosed(a, <span class="number">100</span>)</span><br><span class="line">                	.filter(b -&gt; Math.sqrt(a*a + b*b) % <span class="number">1</span> == <span class="number">0</span>)</span><br><span class="line">                	.mapToObj(b -&gt; </span><br><span class="line">                             <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;a, b, (<span class="keyword">int</span>)Math.sqrt(a*a + b*b)&#125;)</span><br><span class="line">                );</span><br><span class="line"></span><br><span class="line">pythagoreanTiples.limit(<span class="number">5</span>)</span><br><span class="line">    	.forEach(t -&gt; </span><br><span class="line">                System.out.println(t[<span class="number">0</span>] + <span class="string">", "</span> + t[<span class="number">1</span>] + <span class="string">", "</span> + t[<span class="number">2</span>]));</span><br><span class="line"></span><br><span class="line"><span class="comment">//输出</span></span><br><span class="line"><span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span></span><br><span class="line"><span class="number">5</span>, <span class="number">12</span>, <span class="number">13</span></span><br><span class="line"><span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span></span><br><span class="line"><span class="number">7</span>, <span class="number">24</span>, <span class="number">25</span></span><br><span class="line"><span class="number">8</span>, <span class="number">15</span>, <span class="number">17</span></span><br></pre></td></tr></table></figure>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/07/30/Java8-8/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -2395,7 +2394,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -2445,7 +2444,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2456,7 +2455,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2467,7 +2466,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2525,7 +2524,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">51.1k</span>
+    <span title="Site words total count">53.5k</span>
   
 </div>
 

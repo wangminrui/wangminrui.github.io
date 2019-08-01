@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="王敏蕊个人饲养间">
 <meta property="og:description" content="1. 为什么数值流会做特殊处理？eg：计算一个菜单中所有菜的热量总和 123int calories = menu.stream()    		.map(Dish::getCalories)    		.reduce(0, Integer::sum) 上述代码虽然能够实现计算一个菜单中所有菜热量总和的功能，但是却暗含了装箱成本。每个Integer都必须拆箱成一个原始类型，再进行求和。 虽然流中的元">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-31T12:08:49.922Z">
+<meta property="og:updated_time" content="2019-07-31T14:35:31.406Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java8：数值流">
 <meta name="twitter:description" content="1. 为什么数值流会做特殊处理？eg：计算一个菜单中所有菜的热量总和 123int calories = menu.stream()    		.map(Dish::getCalories)    		.reduce(0, Integer::sum) 上述代码虽然能够实现计算一个菜单中所有菜热量总和的功能，但是却暗含了装箱成本。每个Integer都必须拆箱成一个原始类型，再进行求和。 虽然流中的元">
@@ -358,7 +358,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-31T20:08:49+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-31T22:35:31+08:00">
                 2019-07-31
               </time>
             
@@ -481,6 +481,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> calories = menu.stream()</span><br><span class="line">    		.map(Dish::getCalories)</span><br><span class="line">    		.reduce(<span class="number">0</span>, Integer::sum)</span><br></pre></td></tr></table></figure>
 <p>上述代码虽然能够实现计算一个菜单中所有菜热量总和的功能，但是却<strong>暗含了装箱成本</strong>。每个Integer都必须拆箱成一个原始类型，再进行求和。</p>
 <p>虽然流中的元素是Integer类型，但Streams接口没有定义sum方法（因为如果把<code>Stream&lt;Dish&gt;</code>这样的进行sum操作是没有任何意义的），因此Stream API提供<strong>原始类型特化</strong>，专门支持处理数值流。</p>
+<a id="more"></a>
 <h1 id="2-原始类型流特化"><a href="#2-原始类型流特化" class="headerlink" title="2. 原始类型流特化"></a>2. 原始类型流特化</h1><p>Java 8引入了三个原始类型特化流接口来解决这个问题：<code>IntStream</code>、<code>DoubleStream</code>和<code>LongStream</code>，分别将流中的元素特化为<code>int</code>、<code>long</code>和<code>double</code>，<strong>从而避免了暗含的装箱成本</strong>。</p>
 <h2 id="2-1-映射到数值流"><a href="#2-1-映射到数值流" class="headerlink" title="2.1 映射到数值流"></a>2.1 映射到数值流</h2><p>流转换为特化版本的常用方法是：<code>mapToInt</code>、<code>mapToDouble</code>和<code>mapToLong</code></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 计算一个菜单中所有菜的热量总和</span></span><br><span class="line"><span class="keyword">int</span> calories = menu.stream()</span><br><span class="line">    		.mapToInt(Dish::getCalories)	<span class="comment">//返回一个IntStream</span></span><br><span class="line">    		.sum()	<span class="comment">//如果流是空的，sum默认返回0</span></span><br></pre></td></tr></table></figure>
@@ -705,7 +706,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -716,7 +717,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -727,7 +728,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -801,7 +802,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">51.1k</span>
+    <span title="Site words total count">53.5k</span>
   
 </div>
 

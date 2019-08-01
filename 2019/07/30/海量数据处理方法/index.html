@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="1. Hash法">
+<meta name="description" content="1. Hash法Hash一般称为散列，关于散列表的知识，可参见数据结构：散列表 Hash主要用来“快速存取”，因为它可以在$O(1)$的时间复杂度下查找到目标元素，或者判断其是否存在。 适合的问题：在处理海量数据的过程中，使用Hash方法一般可以快速存取、统计某些数据，将大量数据进行分类，例如提取某日访问网站次数最多的IP地址等。">
 <meta name="keywords" content="面试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="海量数据处理方法">
 <meta property="og:url" content="http://wangminrui.github.io/2019/07/30/海量数据处理方法/index.html">
 <meta property="og:site_name" content="王敏蕊个人饲养间">
-<meta property="og:description" content="1. Hash法">
+<meta property="og:description" content="1. Hash法Hash一般称为散列，关于散列表的知识，可参见数据结构：散列表 Hash主要用来“快速存取”，因为它可以在$O(1)$的时间复杂度下查找到目标元素，或者判断其是否存在。 适合的问题：在处理海量数据的过程中，使用Hash方法一般可以快速存取、统计某些数据，将大量数据进行分类，例如提取某日访问网站次数最多的IP地址等。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-30T14:05:00.897Z">
+<meta property="og:updated_time" content="2019-07-31T15:19:21.196Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="海量数据处理方法">
-<meta name="twitter:description" content="1. Hash法">
+<meta name="twitter:description" content="1. Hash法Hash一般称为散列，关于散列表的知识，可参见数据结构：散列表 Hash主要用来“快速存取”，因为它可以在$O(1)$的时间复杂度下查找到目标元素，或者判断其是否存在。 适合的问题：在处理海量数据的过程中，使用Hash方法一般可以快速存取、统计某些数据，将大量数据进行分类，例如提取某日访问网站次数最多的IP地址等。">
 
 
 
@@ -358,8 +358,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-30T22:05:00+08:00">
-                2019-07-30
+              <time title="更新于" itemprop="dateModified" datetime="2019-07-31T23:19:21+08:00">
+                2019-07-31
               </time>
             
           </span>
@@ -418,7 +418,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3
+                  203
                 </span>
               
 
@@ -455,7 +455,18 @@
       
 
       
-        <h1 id="1-Hash法"><a href="#1-Hash法" class="headerlink" title="1. Hash法"></a>1. Hash法</h1>
+        <h1 id="1-Hash法"><a href="#1-Hash法" class="headerlink" title="1. Hash法"></a>1. Hash法</h1><p>Hash一般称为散列，关于散列表的知识，可参见<a href="../../../../2019/03/14/数据结构-2">数据结构：散列表</a></p>
+<p>Hash主要用来“快速存取”，因为它可以在$O(1)$的时间复杂度下查找到目标元素，或者判断其是否存在。</p>
+<p><strong>适合的问题：</strong><br>在处理海量数据的过程中，使用Hash方法一般可以<strong>快速存取、统计某些数据</strong>，将大量数据进行分类，例如提取某日访问网站次数最多的IP地址等。</p>
+<a id="more"></a>
+<h1 id="2-Bit-map法"><a href="#2-Bit-map法" class="headerlink" title="2. Bit-map法"></a>2. Bit-map法</h1><p>Bit-map（位图）</p>
+<p><strong>适合的问题：</strong><br>海量数据的快速查找、判重、删除等。</p>
+<h1 id="3-Bloom-Filter法"><a href="#3-Bloom-Filter法" class="headerlink" title="3. Bloom Filter法"></a>3. Bloom Filter法</h1><h1 id="4-数据库优化法"><a href="#4-数据库优化法" class="headerlink" title="4. 数据库优化法"></a>4. 数据库优化法</h1><h1 id="5-倒排索引法"><a href="#5-倒排索引法" class="headerlink" title="5. 倒排索引法"></a>5. 倒排索引法</h1><h1 id="6-外排序法"><a href="#6-外排序法" class="headerlink" title="6. 外排序法"></a>6. 外排序法</h1><h1 id="7-Trie树"><a href="#7-Trie树" class="headerlink" title="7. Trie树"></a>7. Trie树</h1><h1 id="8-堆"><a href="#8-堆" class="headerlink" title="8. 堆"></a>8. 堆</h1><h1 id="9-双层桶法"><a href="#9-双层桶法" class="headerlink" title="9. 双层桶法"></a>9. 双层桶法</h1><h1 id="10-Map-Reduce"><a href="#10-Map-Reduce" class="headerlink" title="10. Map-Reduce"></a>10. Map-Reduce</h1><hr>
+<p>参考资料：</p>
+<ul>
+<li>Java程序员面试笔试宝典</li>
+</ul>
+
       
     </div>
     
@@ -541,6 +552,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/01/2019-08工作日记/" rel="prev" title="2019-08工作日记">
+                2019-08工作日记 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -655,7 +670,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">53</span>
+                  <span class="site-state-item-count">57</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -666,7 +681,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -677,7 +692,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-count">45</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -710,7 +725,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Hash法"><span class="nav-text">1. Hash法</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-Hash法"><span class="nav-text">1. Hash法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-Bit-map法"><span class="nav-text">2. Bit-map法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-Bloom-Filter法"><span class="nav-text">3. Bloom Filter法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-数据库优化法"><span class="nav-text">4. 数据库优化法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-倒排索引法"><span class="nav-text">5. 倒排索引法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-外排序法"><span class="nav-text">6. 外排序法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-Trie树"><span class="nav-text">7. Trie树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8-堆"><span class="nav-text">8. 堆</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9-双层桶法"><span class="nav-text">9. 双层桶法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10-Map-Reduce"><span class="nav-text">10. Map-Reduce</span></a></li></ol></div>
             
 
           </div>
@@ -751,7 +766,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">51.1k</span>
+    <span title="Site words total count">53.5k</span>
   
 </div>
 
@@ -1275,13 +1290,33 @@
     var s = document.getElementsByTagName("script")[0];
     s.parentNode.insertBefore(bp, s);
 })();
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
 
   
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
