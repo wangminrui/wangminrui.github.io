@@ -218,6 +218,7 @@ h6 {
   line-height: 1.5;
   font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
 }
+h1,
 h2,
 h3,
 h4,
@@ -405,7 +406,7 @@ table {
   border-spacing: 0;
   border: 1px solid #ddd;
   font-size: 14px;
-  table-layout: fixed;
+  table-layout: auto;
   word-wrap: break-all;
 }
 table>tbody>tr:nth-of-type(odd) {
@@ -1940,7 +1941,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #b1bee8;
+  background: #22c64e;
 }
 .links-of-blogroll {
   font-size: 13px;
@@ -3275,6 +3276,15 @@ pre .javascript .function {
   .pagination {
     margin: 8px 0 0;
   }
+}
+.post-body a:not(.btn) {
+  color: #fa8072;
+  border-bottom: none;
+  text-decoration: underline;
+}
+.post-body a:not(.btn):hover {
+  color: #cd5c5c;
+  text-decoration: underline;
 }
 .post-toc .nav .nav-child {
   display: block;

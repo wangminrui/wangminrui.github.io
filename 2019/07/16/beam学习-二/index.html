@@ -547,7 +547,7 @@
 </blockquote>
 <h1 id="3-WordCount"><a href="#3-WordCount" class="headerlink" title="3. WordCount"></a>3. WordCount</h1><p>此例更加复杂，管道更加易于读取，编写和维护。</p>
 <p>使用DirectRunner：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mvn compile exec:java -D exec.mainClass=org.apache.beam.examples.WordCount `</span><br><span class="line"> -D exec.args="--inputFile=pom.xml --output=counts" -P direct-runner</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mvn compile <span class="built_in">exec</span>:java -D exec.mainClass=org.apache.beam.examples.WordCount `</span></span><br><span class="line"> -D exec.args="--inputFile=pom.xml --output=counts" -P direct-runner</span><br></pre></td></tr></table></figure>
 <p><strong>New Concepts:</strong></p>
 <ul>
 <li>Applying <code>ParDo</code> with an explicit <code>DoFn</code></li>
@@ -561,7 +561,7 @@
 <p>当定义CountWords时，我们指定其最终输入和输出; 输入是用于提取操作的PCollection <string>，输出是由计数操作产生的PCollection <kv <string，long>&gt;。</kv></string></p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">CountWords</span> <span class="keyword">extends</span> <span class="title">PTransform</span>&lt;<span class="title">PCollection</span>&lt;<span class="title">String</span>&gt;,</span></span><br><span class="line"><span class="class">    <span class="title">PCollection</span>&lt;<span class="title">KV</span>&lt;<span class="title">String</span>, <span class="title">Long</span>&gt;&gt;&gt; </span>&#123;</span><br><span class="line">  <span class="meta">@Override</span></span><br><span class="line">  <span class="keyword">public</span> PCollection&lt;KV&lt;String, Long&gt;&gt; expand(PCollection&lt;String&gt; lines) &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Convert lines of text into individual words.</span></span><br><span class="line">    PCollection&lt;String&gt; words = lines.apply(</span><br><span class="line">        ParDo.of(<span class="keyword">new</span> ExtractWordsFn()));</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Count the number of times each word occurs.</span></span><br><span class="line">    PCollection&lt;KV&lt;String, Long&gt;&gt; wordCounts =</span><br><span class="line">        words.apply(Count.&lt;String&gt;perElement());</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> wordCounts;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">  Pipeline p = ...</span><br><span class="line"></span><br><span class="line">  p.apply(...)</span><br><span class="line">   .apply(<span class="keyword">new</span> CountWords())</span><br><span class="line">   ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="4-DebuggingWordCount"><a href="#4-DebuggingWordCount" class="headerlink" title="4. DebuggingWordCount"></a>4. DebuggingWordCount</h1><p>使用DirectRunner：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mvn compile exec:java -Dexec.mainClass=org.apache.beam.examples.DebuggingWordCount \</span><br><span class="line">     -Dexec.args="--output=counts" -Pdirect-runner</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mvn compile <span class="built_in">exec</span>:java -Dexec.mainClass=org.apache.beam.examples.DebuggingWordCount \</span></span><br><span class="line">     -Dexec.args="--output=counts" -Pdirect-runner</span><br></pre></td></tr></table></figure>
 <p><strong>New Concepts:</strong></p>
 <ul>
 <li>Logging</li>
@@ -583,7 +583,7 @@
 <li>Reusing PTransforms over windowed PCollections</li>
 </ul>
 <p>使用DirectRunner：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> mvn compile exec:java -Dexec.mainClass=org.apache.beam.examples.WindowedWordCount \</span><br><span class="line">     -Dexec.args="--inputFile=pom.xml --output=counts" -Pdirect-runner</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mvn compile <span class="built_in">exec</span>:java -Dexec.mainClass=org.apache.beam.examples.WindowedWordCount \</span></span><br><span class="line">     -Dexec.args="--inputFile=pom.xml --output=counts" -Pdirect-runner</span><br></pre></td></tr></table></figure>
 <h2 id="5-1-Unbounded-and-bounded-datasets-无界数据集和有界数据集"><a href="#5-1-Unbounded-and-bounded-datasets-无界数据集和有界数据集" class="headerlink" title="5.1 Unbounded and bounded datasets 无界数据集和有界数据集"></a>5.1 Unbounded and bounded datasets 无界数据集和有界数据集</h2><p><strong>有界数据集</strong>：数据集具有固定数量的元素</p>
 <p><strong>无界数据集</strong>：如果数据不断到达，无法确定有多少个元素，则称为无界数据集</p>
 <p>Beam使用窗口将连续更新的数据集划分为有限大小的逻辑窗口，在某一时间点对其进行处理。</p>
@@ -800,7 +800,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -811,7 +811,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -822,7 +822,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -896,7 +896,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">53.5k</span>
+    <span title="Site words total count">53.9k</span>
   
 </div>
 

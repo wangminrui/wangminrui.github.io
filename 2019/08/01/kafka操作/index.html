@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="王敏蕊个人饲养间">
 <meta property="og:description" content="kafka是一个分布式消息系统 查看当前topic 12# kafka目录./bin/kafka-topics.sh --list --zookeeper localhost:2181  终端命令行模拟发送、接受消息 producer   消息的生成者，即发布消息 consumer   消息的消费者，即订阅消息 broker     Kafka以集群的方式运行，可以由一个或多个服务组成，服务即br">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-08-01T07:13:54.736Z">
+<meta property="og:updated_time" content="2019-08-02T01:35:39.553Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka操作">
 <meta name="twitter:description" content="kafka是一个分布式消息系统 查看当前topic 12# kafka目录./bin/kafka-topics.sh --list --zookeeper localhost:2181  终端命令行模拟发送、接受消息 producer   消息的生成者，即发布消息 consumer   消息的消费者，即订阅消息 broker     Kafka以集群的方式运行，可以由一个或多个服务组成，服务即br">
@@ -357,8 +357,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-08-01T15:13:54+08:00">
-                2019-08-01
+              <time title="更新于" itemprop="dateModified" datetime="2019-08-02T09:35:39+08:00">
+                2019-08-02
               </time>
             
           </span>
@@ -466,7 +466,7 @@
 <p>打开两个终端 一个终端发送消息 一个终端接收消息：</p>
 <p>producer，指定的Socket(localhost+9092),说明生产者的消息要发往kafka，也即是broker</p>
 <p>consumer, 指定的Socket(localhost+2181),说明消费者的消息来自zookeeper（协调转发）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 进入kafka工作目录</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 生产者 如果是本机 kafkaserver=localhost 9092是kafka默认端口</span></span><br><span class="line">./bin/kafka-console-producer.sh --broker-list kafkaserver:9092 --topic topicn_ame</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 消费者 如果是本机 zookeeperserver=localhost 2181是zookeeper默认端口</span></span><br><span class="line">.bin//kafka-console-consumer.sh --zookeeper zookeeperserver:2181 --topic topic_name --from-beginning</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 进入kafka工作目录</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 生产者 如果是本机 kafkaserver=localhost 9092是kafka默认端口</span></span><br><span class="line">./bin/kafka-console-producer.sh --broker-list kafkaserver:9092 --topic topicn_ame</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 消费者 如果是本机 zookeeperserver=localhost 2181是zookeeper默认端口</span></span><br><span class="line">./bin/kafka-console-consumer.sh --zookeeper zookeeperserver:2181 --topic topic_name --from-beginning</span><br></pre></td></tr></table></figure>
 <hr>
 <p><strong>kafka配置</strong></p>
 <p>在kafka工作目录下：<code>config/server.properties</code></p>
@@ -656,7 +656,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-count">59</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -667,7 +667,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -678,7 +678,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">46</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -736,7 +736,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">53.5k</span>
+    <span title="Site words total count">53.9k</span>
   
 </div>
 
