@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="待整理,Java,JVM,">
+  <meta name="keywords" content="Java,JVM,待整理,">
 
 
 
@@ -79,15 +79,18 @@
 
 
 
-<meta name="keywords" content="待整理,Java,JVM">
+<meta name="description" content="1. 什么是JVMJVM：Java Virtual Machine — Java虚拟机 Java的跨平台特性来源于JVM的实现，Java语言使用Java虚拟机屏蔽了与具体平台相关的信息，使得Java语言编译程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。Java虚拟机在执行字节码时，把字节码解释成具体平台上的机器指令执行。这就是Java的能够“一次编译，到">
+<meta name="keywords" content="Java,JVM,待整理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM：概述">
 <meta property="og:url" content="http://wangminrui.github.io/2019/03/21/JVM-1/index.html">
 <meta property="og:site_name" content="王敏蕊个人饲养间">
+<meta property="og:description" content="1. 什么是JVMJVM：Java Virtual Machine — Java虚拟机 Java的跨平台特性来源于JVM的实现，Java语言使用Java虚拟机屏蔽了与具体平台相关的信息，使得Java语言编译程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。Java虚拟机在执行字节码时，把字节码解释成具体平台上的机器指令执行。这就是Java的能够“一次编译，到">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-07-30T06:01:19.277Z">
+<meta property="og:updated_time" content="2019-09-01T06:58:57.969Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM：概述">
+<meta name="twitter:description" content="1. 什么是JVMJVM：Java Virtual Machine — Java虚拟机 Java的跨平台特性来源于JVM的实现，Java语言使用Java虚拟机屏蔽了与具体平台相关的信息，使得Java语言编译程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。Java虚拟机在执行字节码时，把字节码解释成具体平台上的机器指令执行。这就是Java的能够“一次编译，到">
 
 
 
@@ -355,8 +358,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-07-30T14:01:19+08:00">
-                2019-07-30
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-01T14:58:57+08:00">
+                2019-09-01
               </time>
             
           </span>
@@ -437,7 +440,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0
+                  144
                 </span>
               
 
@@ -474,7 +477,10 @@
       
 
       
-        
+        <h1 id="1-什么是JVM"><a href="#1-什么是JVM" class="headerlink" title="1. 什么是JVM"></a>1. 什么是JVM</h1><p>JVM：Java Virtual Machine — Java虚拟机</p>
+<p>Java的跨平台特性来源于JVM的实现，Java语言使用Java虚拟机屏蔽了与具体平台相关的信息，使得Java语言编译程序只需生成在Java虚拟机上运行的目标代码（字节码），就可以在多种平台上不加修改地运行。Java虚拟机在执行字节码时，把字节码解释成具体平台上的机器指令执行。这就是Java的能够“一次编译，到处运行”的原因。</p>
+<h1 id="2-JVM知识目录"><a href="#2-JVM知识目录" class="headerlink" title="2. JVM知识目录"></a>2. JVM知识目录</h1><p>[</p>
+
       
     </div>
     
@@ -538,11 +544,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/待整理/" rel="tag"><i class="fa fa-tag"></i> 待整理</a>
-          
             <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           
             <a href="/tags/JVM/" rel="tag"><i class="fa fa-tag"></i> JVM</a>
+          
+            <a href="/tags/待整理/" rel="tag"><i class="fa fa-tag"></i> 待整理</a>
           
         </div>
       
@@ -655,8 +661,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -673,7 +688,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-count">61</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -719,6 +734,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-什么是JVM"><span class="nav-text">1. 什么是JVM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-JVM知识目录"><span class="nav-text">2. JVM知识目录</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
         <div class="back-to-top">
@@ -739,7 +770,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
@@ -753,7 +784,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">55.1k</span>
+    <span title="Site words total count">55.4k</span>
   
 </div>
 
